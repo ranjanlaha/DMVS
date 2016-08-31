@@ -101,7 +101,7 @@ double aq_fov(vs_params* vsp) {
 	func = rho_nfw_cart;
 	
 	double dom = 6.28318530718*(1.0-cos(vsp->theta))*vsp->rmax;
-	double tol = 1.0e-9*dom;
+	double tol = 1.0e-5*dom;
 
 	double errbound = 0.0;
 	int ncall = 0;

@@ -7,7 +7,7 @@ from ctypes import *
 
 
 # load and initialize the c library
-_hps = ctypes.CDLL('cfuncs/hpspec.so')
+_hps = ctypes.CDLL('speedyVS/speedyvs.so')
 
 # struct for passing constant data
 class vsParams(Structure):
@@ -59,14 +59,12 @@ _hps.py_integral.argtypes = (c_int, c_double)
 _hps.py_integral.restype = (c_double)
 
 
+if __name__ == '__main__':
 
-# do the analytic integral of an NFW profile
-def integrate_analytic():
-
-	vsp = vsParams()
-
+	print "Testing c functions..."
 	print "Integrating the J-factor numerically..."
 
+	vsp = vsParams()
 	def rfo(s):
 		return _hps.rho_nfw_los(s, vsp)
 
@@ -97,21 +95,15 @@ def integrate_analytic():
 	print ' dt = %.5e' % (tend-tstart)
 
 
-
-
 	print "\n= C adaptive quadrature 3D FOV ="
 	tstart = time.time()
 	jfac = _hps.aq_fov(vsp)
 	tend = time.time()
-
 	print ' J-factor = ', jfac
 	print ' dt = %.5e' % (tend-tstart)
 
 	print "\n"
 
 
-# ctypes healpix binning for faster results and custom skymaps
-#def spectroscopy_c():
-	#_hps.bin_pixels()
 
 

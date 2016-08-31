@@ -1,5 +1,7 @@
 
 *.swp
+*.o
+*.so
 dmvs.aux
 dmvs.bbl
 dmvs.blg
