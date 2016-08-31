@@ -1,0 +1,20 @@
+# Best-fit parameters for all MW simulations
+# id: simulation number
+# rho_0(rho): rho_0 for NFW fit using binned rho, in GeV/cm^3
+# r_s(rho): r_s for NFW fit using binned rho, in kpc
+# rho_0(menc): rho_0 for NFW fit using binned menc, in GeV/cm^3
+# r_s(menc): r_s for NFW fit using binned menc, in kpc
+# b/a: principal axis ratio of halo for particles within the Sun's orbit
+# c/a: principal axis ratio of halo for particles within the Sun's orbit
+# id	rho_0(rho)	r_s(rho)	rho_0(menc)	r_s(menc)	b/a	c/a
+268	3.84344e-01	1.72472e+01	4.11676e-01	1.67349e+01	6.90958e-01	5.95385e-01
+288	2.27580e-01	2.15128e+01	2.39008e-01	2.10618e+01	7.05730e-01	6.16810e-01
+374	2.03963e-01	2.29797e+01	2.45934e-01	2.10395e+01	8.18160e-01	7.64136e-01
+414	1.64149e-01	2.29483e+01	2.28257e-01	1.96487e+01	7.02209e-01	5.05225e-01
+416	3.79872e-02	5.60048e+01	4.76413e-02	4.98873e+01	6.89228e-01	6.34932e-01
+460	2.28403e-01	2.18458e+01	2.90903e-01	1.94837e+01	6.31638e-01	5.88913e-01
+490	1.35166e-01	2.70929e+01	2.08585e-01	2.20326e+01	6.60751e-01	5.78917e-01
+558	7.24600e-02	3.65932e+01	8.48488e-02	3.43215e+01	6.68933e-01	5.22617e-01
+570	6.73030e-02	3.60634e+01	6.24073e-02	3.81783e+01	7.35771e-01	6.44429e-01
+628	4.99811e-02	4.46778e+01	4.94004e-02	4.54659e+01	7.52043e-01	7.19911e-01
+878	6.05182e-02	3.78067e+01	4.30259e-02	4.57149e+01	7.50712e-01	7.22662e-01
