@@ -21,6 +21,9 @@
   {\normalfont\itshape}{\thesubsection}{1em}{}[:]
 \titlespacing*{\subsection}{1cm}{2em}{1em}
 
+\newcommand{\bvec}[1]{\mathbf{#1}}
+\newcommand{\comments}[1]{}
+
 \begin{document}
 
 \title{The Doppler effect on indirect detection of decaying dark matter}
@@ -34,7 +37,7 @@
 \date{\today}
 
 \begin{abstract}
-
+\cite{speckhard2016}
 \end{abstract}
 
 %\pacs{95.35.+d, 13.35.Hb, 14.60.St, 14.60.Pq}
@@ -49,6 +52,51 @@
 % % % % % % % % % % % INTRODUCTION % % % % % % % % % % % % % % % % % % % % % %
 \section{Introduction}
 \label{sec:Introduction}
+
+The search for the particle properties of dark matter is one of the most important research avenues\,\cite{Jungman:1995df,Bertone:2004pz,Strigari:2013iaa}.  The ``weak" interactions experienced by the dark matter particle complicates these searches.  Despite decades of multi-pronged searches, we have not yet identified the dark matter particle\,\cite{Bertone:2016nfn}.  One of the most important ways to search for dark matter particles is indirect detection\,\cite{Klasen:2015uma}.
+
+Due to the enormous astrophysical background, many anomalous signals have been interpreted as a  dark matter signal\,\cite{Abazajian:2014hsa,Daylan:2014rsa,Lee:2015fea,Bartels:2015aea,Bulbul:2014sua,Boyarsky:2014jta,Urban:2014yda}.  Astrophysical sources such as pulsars or atomic lines are diverse enough to mimic a dark matter signal\,\cite{O'Leary:2015gfa,Brandt:2015ula,O'Leary:2016osi,Gu:2015gqm,Phillips:2015wla,Shah:2016efh}.  The separation of signal and background is difficult since one needs to model the background and then find the signal in the same data set.  Distinct kinematic signatures arising from dark matter annihilation or decay are used to separate the dark matter signal from background.  These signatures include monochromatic photons arising from dark matter annihilation or decay.  Past experiences have shown that it is not reliable to only depend on this signature for the identification of a dark matter signal.
+
+In order to better characterize a dark matter signal, Ref.\,\cite{speckhard2016} utilized the superb energy resolution, $\sim \mathcal{O}$(0.1\%), of Hitomi (previously known as Astro-H) to find a new signature.  It was shown that our motion around the Galaxy produces a distinct longitudinal dependence in the dark matter signal --- a signature of Doppler effect.  This new signature is model independent and applicable to any dark matter signal containing a sharp feature.  It is unlikely that baryonic phenomenon can produce such a distinct signature\,\cite{speckhard2016}.
+
+Given the importance of identifying the dark matter particle, it is important to characterize any new model independent signature in detail.  We perform such a study in this work using dark matter only simulations from Ref.\,\cite{mao2015}.  As an example of the dark matter signal, we consider the 3.5 keV line\,\cite{Bulbul:2014sua,Boyarsky:2014jta}.  The status of the 3.5 keV line is controversial\,\cite{Iakubovskyi:2015wma,Jeltema:2015mee,Ruchayskiy:2015onc,Bulbul:2016yop,Aharonian:2016gzq,Hofmann:2016urz,Conlon:2016lxl}.  The malfunctioning of the Hitomi satellite did not permit an observation which would have conclusively tested this signal.  We use future Micro-X observations\,\cite{Figueroa-Feliciano:2015gwa} to demonstrate our technique.  It is expected that Micro-X will have an energy resolution of 3 eV at 3.5 keV\,\cite{Figueroa-Feliciano:2015gwa}, and thus permits dark matter velocity spectroscopy\,\cite{speckhard2016}.  We emphasize that we are using this 3.5 keV signal as a proxy, and that the underlying physics of this work is model independent.  
+
+Any telescope with $\mathcal{O}$(0.1 \%) energy resolution can perform dark matter velocity spectroscopy.  An improvement in the energy resolution is the natural step in the evolution of telescope instrumentation.  This improvement will help in disentangling dark matter signal from background, and improving our knowledge of the astronomical sources.  It is a known technology to build detectors with $\mathcal{O}$(0.1\%) energy resolution, such as INTEGRAL-SPI\,\cite{2003AA} and Hitomi.  Near future instruments like Micro-X\,\cite{Figueroa-Feliciano:2015gwa} and ATHENA\,\cite{Barret:2016ett} will also have a $\mathcal{O}$(0.1\%) energy resolution.
+
+%The decay signal spectral intensity is traditionally defined in terms of a line integral along the viewing direction $\psi$:
+%\begin{equation}
+%\frac{dI(\psi, E)}{dE} = \frac{\Gamma}{4 \pi m_\chi} \frac{dN(E)}{dE} \int_\phi \rho_\chi(r[s,\phi]) \, ds
+%\end{equation}
+%where the integral term is the well-known ``J-factor,'' which captures the enhancement of the 
+%signal due to substructure.
+
+%The main insight of \cite{speckhard2016} is that for a detector with sufficient spectral
+%resolution, the decay spectrum $\frac{dN(E)}{dE}$ can no longer be considered to be independent of
+%position.  This is due to Doppler shifting induced by the Sun's motion around the galactic center
+%as well as broadening due to the position-dependent velocity dispersion $\sigma(r)$.
+%Qualitatively speaking, the observed spectrum is given by the rest-frame decay spectrum
+%$\frac{dN(E)}{dE}$ broadened by the dark matter velocity dispersion $\sigma(r)$, shifted by the Sun's velocity 
+%relative to the dark halo $\delta E_{MW} = \frac{E v_{MW}}{c}$, and integrated along the line of sight (LOS):
+
+%\begin{equation} \label{eq:analytic}
+%\frac{dI(\psi, E)}{dE} = \frac{\Gamma}{4 \pi m_\chi} \int_\phi \rho_\chi(r[s,\phi]) \,
+%\frac{d\widetilde{N}(E-\delta E_{MW}, r[s,\phi])}{dE} \, ds
+%\end{equation}
+
+%Here, $\frac{d\widetilde{N}}{dE}$ is the rest-frame spectrum broadened by the local
+%(position-dependent) velocity dispersion. \cite{speckhard2016} model this as a Gaussian convolution
+%with a width dependent on an analytic prescription for $\sigma(r)$.
+
+
+
+% % % % % % % % % % % METHODS % % % % % % % % % % % % % % % % % % % % % %
+\section{Methods}
+\label{sec:methods}
+\subsection{Theory}
+
+
+
+
 
 For a large field of view instrument\,\cite{Figueroa-Feliciano:2015gwa}:
 \begin{eqnarray}
@@ -88,76 +136,84 @@ We have $\delta (E - E' (1 \pm v/c)) = \dfrac{c}{E'} \, \delta \left(v + c - \df
 \end{eqnarray}
 which we can compare with a regular Gaussian to derive $\sigma_E = (E/c) \sigma_v$.
 
+\subsection{Simulations}
+\label{sec:simulations}
 
-% % % % % % % % % % % METHODS % % % % % % % % % % % % % % % % % % % % % %
-\section{Methods}
 
-We use a suite of Milky Way zoom-in simulations run by \cite{mao2015} using the L-GADGET cosmology code
-(a descendant of GADGET-2, \cite{springel2005}) to study the Doppler-shifted line emission due to sterile neutrino decay. 
+We analyze a suite of Milky Way analogue simulations run using the L-GADGET cosmology code
+(a descendant of GADGET-2, \cite{springel2005}). These are dark matter only simulations 
+run by \cite{mao2015} to study subhalo abundance, and their high resolution and multiple
+realizations makes them suitable for our purposes as well.
+While there were 30 realizations available to us, we focus on Halo 374 in particular. This
+halo has a mass $M_{\mathrm{vir}}=$ and a particle mass $m_p=$.
 
-The decay signal spectral intensity is traditionally defined in terms of a line integral along the viewing direction $\psi$:
-\begin{equation}
-\frac{dI(\psi, E)}{dE} = \frac{\Gamma}{4 \pi m_\chi} \frac{dN(E)}{dE} \int_\phi \rho_\chi(r[s,\phi]) \, ds
-\end{equation}
-where the integral term is the well-known ``J-factor,'' which captures the enhancement of the 
-signal due to substructure.
+TODO: read Yao's paper again to give more information on the simulations!
 
-The main insight of \cite{speckhard2016} is that for a detector with sufficient spectral
-resolution, the decay spectrum $\frac{dN(E)}{dE}$ can no longer be considered to be independent of
-position.  This is due to Doppler shifting induced by the Sun's motion around the galactic center
-as well as broadening due to the position-dependent velocity dispersion $\sigma(r)$.
-Qualitatively speaking, the observed spectrum is given by the rest-frame decay spectrum
-$\frac{dN(E)}{dE}$ broadened by the dark matter velocity dispersion $\sigma(r)$, shifted by the Sun's velocity 
-relative to the dark halo $\delta E_{MW} = \frac{E v_{MW}}{c}$, and integrated along the line of sight (LOS):
-
-\begin{equation} \label{eq:analytic}
-\frac{dI(\psi, E)}{dE} = \frac{\Gamma}{4 \pi m_\chi} \int_\phi \rho_\chi(r[s,\phi]) \,
-\frac{d\widetilde{N}(E-\delta E_{MW}, r[s,\phi])}{dE} \, ds
-\end{equation}
-
-Here, $\frac{d\widetilde{N}}{dE}$ is the rest-frame spectrum broadened by the local
-(position-dependent) velocity dispersion. \cite{speckhard2016} model this as a Gaussian convolution
-with a width dependent on an analytic prescription for $\sigma(r)$.
-
-Rather than attempting to analytically integrate \eqref{eq:analytic}, we construct the full
+We construct the full
 spectral intensity seen by the detector directly from the N-body particles, incorporating Doppler shift
 and velocity dispersion in a straightforward and natural way.   This is similar in spirit to both the ``sightline'' method employed by 
 \cite{lovell2015} and the velocity distribution function sampling of \cite{mao2013}, both of whom
 eschew analytic prescriptions in favor of operating directly on the information available in the
 simulation data. 
 
-We do this by approximating the LOS integral using a thin cone, then sampling all simulation
-particles lying inside the cone.  This sampling cone subtends the solid angle $\Omega_s$ and is
-understood to lie along $\psi$, the viewing direction as before.  Replacing the integral with a sum over all particles
-$p$ in the sampling cone, we obtain the following expression:
+The procedure for performing velocity spectroscopy on N-body data is relatively straightforward.
+The density field in an N-body simulation is effectively a sum of Dirac-$\delta$ functions
+$$
+\rho(\bvec{x}) = m_p \sum_p \delta(\bvec{x}-\bvec{x}_p)
+$$
+where $\bvec{x}_p$ and $m_p$ are the position and mass of particle $p$. 
 
-\begin{equation} \label{eq:discrete}
-	\frac{dI(\psi, E)}{dE} = \frac{\Gamma}{4 \pi m_\chi}\, \sum_{p \, \in \, \Omega_s}
-	\, \frac{1}{r_p^{2}} \, \frac{dN[E(1-v_p/c)]}{dE}
+Integrating over a conical
+field of view $\Omega$ amounts to summing over all of the particles within that field of view, $p \in
+\Omega$, while weighting by the inverse square of the scalar distance to the observer, $r^{-2}_p$. 
+Analytically integrating \eqref{eq:flux for large FoV} using this form for the density field yields the
+total flux from within the field of view $\Omega$:
+\begin{equation} 
+	\mathcal{F} = \frac{\Gamma}{4\pi m_s}
+	\, \sum_{p \, \in \, \Omega} \, \frac{m_p}{r_p^{2}} 
 \end{equation}
 
-where $r_p$ is the scalar distance to particle $p$ and $v_p$ is the velocity projected along the
-line of sight. Intuitively, we are ``stacking the spectra'' from the individual simulation
+Likewise, we can integrate \eqref{eq:double differential for the flux} to sample the Doppler shifted
+and broadened observed spectrum:
+\begin{equation} \label{eq:discrete}
+	\frac{d\mathcal{F}}{dE} = \frac{\Gamma}{4 \pi m_s}\, \sum_{p \, \in \, \Omega}
+	\, \frac{m_p}{r_p^{2}} \, \frac{dN[E(1-v_p/c)]}{dE}
+\end{equation}
+where $v_p$ is the velocity of particle $p$ projected along the line of sight to the observer.
+
+Intuitively, we are ``stacking the spectra'' from the individual simulation
 particles, with weights reflecting the $r^{-2}$ dependence in the observed flux. One can see that by
 considering the LOS velocity of each particle independently, we automatically capture the spectral
-convolution introduced by the bulk velocity dispersion. In the special case where
-$\frac{dN(E)}{dE}$ is a line, computing the observed spectrum is then as simple as
-building a $r^{-2}$-weighted histogram of the LOS velocities for all particles in the sampling cone.
+convolution introduced by the bulk velocity dispersion. 
 
+We focus here on the special case where
+$\frac{dN(E)}{dE}$ is a line. In this case, computing the observed spectrum is then as simple as
+building a $r^{-2}$-weighted histogram of the LOS velocities for all particles in the sampling cone,
+though as we will see it is easier to compute the line width directly.
 
-\section{Counting statistics and differentiating line centroids}
-
-Given a telescope with effective area $A_{eff}$ and field of view (FOV) $\Omega_{FOV}$, the number
-of photons entering the detector during an exposure of length $t$ is
-
+The mean LOS velocity is
 \begin{equation} 
-	N_\gamma = \frac{\Gamma t A_{eff}}{4\pi}
-	\, \frac{m_s}{m_\chi} \, \frac{\Omega_{FOV}}{\Omega_s} \, \sum_{p \, \in \, \Omega_s} \, \frac{1}{r_p^{2}} 
+	\langle v_p \rangle =\frac{1}{\mathcal{F}} \frac{\Gamma}{4\pi m_s} \sum_{p \, \in \, \Omega}
+	\, \frac{m_p v_p}{r_p^{2}} 
 \end{equation}
 
+In fact, we can find the width of the observed line directly by finding the $1/r_p^2$-weighted
+variance of the line-of-sigh velocities $v_p$:
+
+%% Line width calculation! 
+\begin{equation} 
+	\sigma^2 =\frac{1}{\mathcal{F}} \frac{\Gamma}{4\pi m_s} \sum_{p \, \in \, \Omega}
+	\, \frac{m_p (v_p-\langle v\rangle)^2}{r_p^{2}} 
+\end{equation}
+
+In Figure \ref{} we demonstrate the 
+
+% Figures! histogram demo, sky maps, .....
 
 %Again, this photon count is modeled entirely using the N-body data and 
 
+\section{Results}
+\label{sec:results}
 
 
 
@@ -179,6 +235,7 @@ Mark Lovell, Yao-Yuan Mao, Chris Davis.
 
 \newcommand{\mnras}[0]{M.N.R.A.S.}
 \bibliographystyle{kp}
+%\bibliography{Bibliography/references}	
 \bibliography{references}	
 
 \end{document}
