@@ -4,6 +4,7 @@
 \usepackage{graphicx}
 \usepackage{amsfonts,amsmath,amssymb,bm,bbm}
 \usepackage{color}
+\usepackage{todonotes}
 
 \hypersetup{
     pdfnewwindow=true,      % links in new window
@@ -31,9 +32,11 @@
 \email{dmpowel1@stanford.edu}
 \author{Ranjan Laha}
 \email{rlaha@stanford.edu}
+\author{Tom Abel}
+%\email{tabel@stanford.edu}
 \affiliation{Kavli Institute for Particle Astrophysics and Cosmology (KIPAC),
-	\\ Department of Physics, Stanford University, Stanford, CA 94035, USA\\
-		SLAC National Accelerator Laboratory, Menlo Park, CA 94025, USA}
+	\\ Department of Physics, Stanford University, Stanford, CA 94305, USA}
+\affiliation{SLAC National Accelerator Laboratory, Menlo Park, CA 94025, USA}
 \date{\today}
 
 \begin{abstract}
@@ -150,13 +153,13 @@ units).
 While there are 46 realizations available to us, we focus on one halo (labeled Halo 374) in particular. 
 This halo is the most spherically-symmetric of the set we studied, with principal axis ratios
 $b/a=0.86$ and $c/a=0.73$. Our reason for this choice is that halo triaxility actually plays a small role
-in the the symmetry of the observed signal about the Galactic meridian $\ell=0^{\circ}$. Furthermore, the effect of baryons in the Milky Way tends to make the host
-halo more spherical \cite{}. As such, we choose to limit ourselves to the most plausible case of
+in the the symmetry of the observed signal about the Galactic meridian $\ell=0^{\circ}$.
+Furthermore, the presence of a baryonic disk in the Milky Way tends to make the host
+halo more spherical \cite{debattista2008, bryan2013}. As such, we choose to limit ourselves to the most plausible case of
 Halo 374, while acknowledging the existence of a second-order effect due to triaxiality. 
 We discuss this further in Section \ref{sec:triaxiality}.
 
-TODO: figure showing halo 374!
-TODO: look up reference for spherical haloes and baryons!
+\todo{figure showing halo 374}
 
 \subsection{Velocity spectroscopy using simulations}
 \label{sec:simulations}
@@ -199,11 +202,11 @@ convolution introduced by the bulk velocity dispersion.
 
 We focus here on the special case where
 $\frac{dN(E)}{dE}$ is a line. In this case, computing the observed spectrum is then as simple as
-building a $r^{-2}$-weighted histogram of the LOS velocities for all particles in the sampling cone,
+building a flux-weighted histogram of the line-of-sight velocities for all particles in the sampling cone,
 though as we will see it is easier to forgo binning and compute the line width directly. See Figure \ref{} for an
 illustration.
 
-TODO: FIGURE of histogram vs. Gaussian fit.
+\todo{figure of histogram vs. Gaussian fit.}
 
 The flux-weighted mean line-of-sight velocity for a field of view is 
 \begin{equation} 
@@ -213,7 +216,7 @@ The flux-weighted mean line-of-sight velocity for a field of view is
 It is then easy to see that the mean Doppler shift (the observed shift in the energy of the line) is  
 	$\langle \delta E\rangle = (E/c)\langle v \rangle$.
 
-Likewise, we can compute the width of the observed line $\sigma_E$ directly by finding the $r_p^{-2}$-weighted
+Likewise, we can compute the width of the observed line $\sigma_E$ directly by finding the flux-weighted
 variance of the line-of-sight velocities $v_p$:
 \begin{equation} 
 	\sigma_v^2 =\frac{1}{\mathcal{F}} \frac{\Gamma}{4\pi m_s} \sum_{p \, \in \, \Omega}
@@ -222,10 +225,12 @@ variance of the line-of-sight velocities $v_p$:
 The width of the Doppler-broadened line is then $\sigma_E = (E/c) \sigma_v$. In Figure \ref{} we show a comparison 
 between this analytic form for the line width and its true histogram.
 
+\todo{ explain the large sampling cone used for Astro-H!}
 
 \subsection{Position of the line centroid}
 
 We compute the figure of merit... 
+\todo{line shift, background model, etc.}
 
 %Again, this photon count is modeled entirely using the N-body data and 
 
@@ -240,7 +245,7 @@ We compute the figure of merit...
 \subsection{Halo triaxiality}
 \label{sec:triaxiality}
 
-TODO: sky maps
+\todo{ sky maps}
 
 
 
