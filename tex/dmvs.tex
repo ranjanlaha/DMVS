@@ -25,6 +25,8 @@
 \newcommand{\bvec}[1]{\mathbf{#1}}
 \newcommand{\comments}[1]{}
 
+\graphicspath{{../img/}}
+
 \begin{document}
 
 \title{The Doppler effect on indirect detection of decaying dark matter}
@@ -136,7 +138,7 @@ We have $\delta (E - E' (1 \pm v/c)) = \dfrac{c}{E'} \, \delta \left(v + c - \df
 which we can compare with a regular Gaussian to derive $\sigma_E = (E/c) \sigma_v$.
 
 
-\subsection{Simulations}
+\subsection{Simulations}{
 \label{sec:simulations}
 
 Our main contribution in this paper is to examine the potential of velocity spectroscopy using
@@ -150,16 +152,24 @@ high-resolution particles with a particle mass $m_p=4.0\times10^5\, \mathrm{M_{\
 mass $M_{\mathrm{vir}}\simeq1.2\times10^{12}\,\mathrm{M_{\odot}}$ (note that here, we quote the masses in physical rather than comoving
 units).
 
-While there are 46 realizations available to us, we focus on one halo (labeled Halo 374) in particular. 
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.9\columnwidth]{halo374.png}
+\caption{Halo 374.}
+\label{fig:halo374}
+\end{figure}
+
+While there are 46 realizations available to us, we focus on one halo (labeled Halo 374, see Figure
+\ref{fig:halo374}) in particular. 
 This halo is the most spherically-symmetric of the set we studied, with principal axis ratios
-$b/a=0.86$ and $c/a=0.73$. Our reason for this choice is that halo triaxility actually plays a small role
+$b/a=0.86$ and $c/a=0.73$. Our reason for this choice is that halo triaxility actually plays a role
 in the the symmetry of the observed signal about the Galactic meridian $\ell=0^{\circ}$.
 Furthermore, the presence of a baryonic disk in the Milky Way tends to make the host
-halo more spherical \cite{debattista2008, bryan2013}. As such, we choose to limit ourselves to the most plausible case of
+halo more spherical \cite{debattista2008, bryan2013}. As such, we choose to limit ourselves to the more plausible case of
 Halo 374, while acknowledging the existence of a second-order effect due to triaxiality. 
-We discuss this further in Section \ref{sec:triaxiality}.
+We discuss this further in Section \ref{sec:results}.
 
-\todo{figure showing halo 374}
+\todo{turn halo374 into an illustration of the sampling method rather than just a picture of the halo?}
 
 \subsection{Velocity spectroscopy using simulations}
 \label{sec:simulations}
@@ -201,17 +211,27 @@ considering the LOS velocity of each particle independently, we automatically ca
 convolution introduced by the bulk velocity dispersion. 
 
 We focus here on the special case where
-$\frac{dN(E)}{dE}$ is a line. In this case, computing the observed spectrum is then as simple as
+$dN/dE$ is a line. In this case, computing the observed spectrum is then as simple as
 building a flux-weighted histogram of the line-of-sight velocities for all particles in the sampling cone,
-though as we will see it is easier to forgo binning and compute the line width directly. See Figure \ref{} for an
-illustration.
+though as we will see it is easier to forgo binning and compute the line width directly. See Figure
+\ref{fig:dfde} for an illustration.
 
-\todo{figure of histogram vs. Gaussian fit.}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=1.0\columnwidth]{dnde_demo.png}
+\caption{A comparison of empirical histograms (solid) for the observed line spectrum
+	$d\mathcal{F}/dE$ against their Gaussian models (dashed) as computed using \eqref{eq:simcenter} and \eqref{eq:simsigma}.
+	These were calculated using Micro-X parameters for galactic latitude $b=25.0^\circ$ and two galactic
+	latitudes $\ell$. These model spectra give a good fit to the data and allow us to forgo
+	binning in practice.}
+\label{fig:dfde}
+\end{figure}
 
 The flux-weighted mean line-of-sight velocity for a field of view is 
 \begin{equation} 
 	\langle v\rangle =\frac{1}{\mathcal{F}} \frac{\Gamma}{4\pi m_s} \sum_{p \, \in \, \Omega}
 	\, \frac{m_p}{r_p^{2}} \, v_p
+\label{eq:simcenter}
 \end{equation}
 It is then easy to see that the mean Doppler shift (the observed shift in the energy of the line) is  
 	$\langle \delta E\rangle = (E/c)\langle v \rangle$.
@@ -221,8 +241,9 @@ variance of the line-of-sight velocities $v_p$:
 \begin{equation} 
 	\sigma_v^2 =\frac{1}{\mathcal{F}} \frac{\Gamma}{4\pi m_s} \sum_{p \, \in \, \Omega}
 	\, \frac{m_p}{r_p^{2}} \left(v_p-\langle v\rangle\right)^2 
+\label{eq:simsigma}
 \end{equation}
-The width of the Doppler-broadened line is then $\sigma_E = (E/c) \sigma_v$. In Figure \ref{} we show a comparison 
+The width of the Doppler-broadened line is then $\sigma_E = (E/c) \sigma_v$. In Figure \ref{fig:dfde} we show a comparison 
 between this analytic form for the line width and its true histogram.
 
 \todo{ explain the large sampling cone used for Astro-H!}
@@ -237,13 +258,23 @@ We compute the figure of merit...
 \section{Results}
 \label{sec:results}
 
+\begin{figure}[h!]
+\centering
+\includegraphics[width=1.0\columnwidth]{de_vs_l.png}
+\caption{Velocity spectroscopy.}
+\label{fig:de_vs_l}
+\end{figure}
 
 
+
+\todo{Number of significant figures in Ranjan's result?}
 
 
 
 \subsection{Halo triaxiality}
 \label{sec:triaxiality}
+
+See Figure... sky map.
 
 \todo{ sky maps}
 
