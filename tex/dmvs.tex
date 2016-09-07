@@ -6,6 +6,9 @@
 \usepackage{color}
 \usepackage{todonotes}
 
+\usepackage{caption}
+\usepackage{subcaption}
+
 \hypersetup{
     pdfnewwindow=true,      % links in new window
     colorlinks=true,       % false: boxed links; true: colored links
@@ -98,6 +101,7 @@ Any telescope with $\mathcal{O}$(0.1 \%) energy resolution can perform dark matt
 \section{Methods}
 \label{sec:methods}
 \subsection{Theory}
+\label{sec:theory}
 
 For a large field of view instrument\,\cite{Figueroa-Feliciano:2015gwa}:
 \begin{eqnarray}
@@ -258,16 +262,47 @@ We compute the figure of merit...
 \section{Results}
 \label{sec:results}
 
+It is important that the fields of view do not overlap significantly, so that the signals are as
+uncorrelated as possible.
+
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1.0\columnwidth]{de_vs_l.png}
-\caption{Velocity spectroscopy.}
+\caption{Velocity spectroscopy of the Milky Way halo, giving the position of the observed line centroid due to sterile
+	neutrino decay as a function of Galactic longitude $\ell$, with latitude $b=25.0^\circ$. This
+	compares results as computed from an N-body simulation (Halo 374; see Section \ref{sec:simulations}) for the
+	instrumental parameters of Micro-X and Astro-H against our analytic model (Section
+	\ref{sec:theory}), showing good agreement.	
+	Note that the error bars here represent the 1-$\sigma$ uncertainty
+in the energy of the line centroid, rather than the Doppler-broadened width of the line.
+$\ell= \pm 45.0^\circ,65.0^\circ$ give the best exclusion of $\delta E/E=0$, at $\sim 1.5\sigma$.}
 \label{fig:de_vs_l}
 \end{figure}
 
 
 
 \todo{Number of significant figures in Ranjan's result?}
+
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[b]{1.0\columnwidth}
+	\includegraphics[width=\textwidth]{flux_map_374.png}
+\subcaption{Flux.}
+\end{subfigure}
+\par\medskip
+\begin{subfigure}[b]{1.0\columnwidth}
+	\includegraphics[width=\textwidth]{line_map_374.png}
+\subcaption{Doppler-shifted line centroid.}
+\end{subfigure}
+\par\medskip
+\begin{subfigure}[b]{1.0\columnwidth}
+	\includegraphics[width=\textwidth]{sigma_map_374.png}
+\subcaption{Exclusion of the line centroid from $\delta E/E=0$.}
+\end{subfigure}
+\caption{s}
+\label{fig:skymaps}
+\end{figure}
 
 
 
