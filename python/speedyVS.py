@@ -1,21 +1,19 @@
 import numpy as np
 import time
-import healpy as hp
+#import healpy as hp
 import scipy.integrate as integrate
 import ctypes
 from ctypes import *
 
-
 # load and initialize the c library
-_hps = ctypes.CDLL('speedyVS/speedyvs.so')
+svslib = ctypes.CDLL('speedyVS/speedyvs.so')
 
 # struct for passing constant data
 class vsParams(Structure):
 
 	_fields_ = [("rsun", c_double), ("vsun", c_double), ("Rs", c_double), ("rho0", c_double), 
-			("b", c_double), ("l", c_double), ("theta", c_double), 
-			("rsun2", c_double), ("cosb", c_double), ("cosl", c_double), 
-			("rmax", c_double), ("omega", c_double), ]
+			("b", c_double), ("l", c_double), ("theta", c_double), ("rmax", c_double), 
+			("cosb", c_double), ("cosl", c_double), ("sinb", c_double), ("sinl", c_double),]
 	
 	def __init__(self, rsun=8.0, vsun=220.0, Rs=19.78, rho0=6.912562e6, \
 			b=25.0, l=25.0, theta=20.0):
@@ -27,83 +25,126 @@ class vsParams(Structure):
 
 		# assumed to be in M_sun/kpc^3
 		# convert to keV/cm^3
+		# TODO: is this correct??
 		self.rho0 = rho0*3.7966e-5 
-		#print self.rho0
 	
 		# LOS and FOV params
 		torad = np.pi/180.0
 		self.b = b*torad
 		self.l = l*torad
 		self.theta = theta*torad # degrees
+		self.rmax = 10000.0 
 
 		# compute secondary geometric stuff
-		self.rsun2 = self.rsun**2
 		self.cosb = np.cos(self.b)
 		self.cosl = np.cos(self.l)
-		self.rmax = 10000.0 #200.0 # TODO: check if this is large enough
-		self.omega = 0.0
+		self.sinb = np.sin(self.b)
+		self.sinl = np.sin(self.l)
 
 	def from_param(self):
 		return byref(self) 
 
-# arg and return types
-_hps.rho_nfw_los.argtypes = [c_double, POINTER(vsParams)]
-_hps.rho_nfw_los.restype = c_double
-_hps.adaptive_quadrature.argtypes = [POINTER(vsParams)]
-_hps.adaptive_quadrature.restype = c_double
+# arg and return types for c functions
+svslib.py_set_params.argtypes = (POINTER(vsParams),)
+svslib.py_nfw_polarproj_rho.argtypes = (c_int, c_double)
+svslib.py_nfw_polarproj_rho.restype = (c_double)
+svslib.py_nfw_polarproj_vel.argtypes = (c_int, c_double)
+svslib.py_nfw_polarproj_vel.restype = (c_double)
+svslib.py_nfw_polarproj_sigv.argtypes = (c_int, c_double)
+svslib.py_nfw_polarproj_sigv.restype = (c_double)
 
-_hps.aq_fov.argtypes = [POINTER(vsParams)]
-_hps.aq_fov.restype = c_double
-
-_hps.py_integral.argtypes = (c_int, c_double)
-_hps.py_integral.restype = (c_double)
-
-
+# main test routine
 if __name__ == '__main__':
 
-	print "Testing c functions..."
-	print "Integrating the J-factor numerically..."
+	# setup parameters 
+	vsp = vsParams(theta=20.0, l=65.0)
+	svslib.py_set_params(vsp)	
+	quadargs = {'ranges': ((0.0, vsp.rmax), (0.0, vsp.theta), (0.0, 2*np.pi)),}
 
-	vsp = vsParams()
-	def rfo(s):
-		return _hps.rho_nfw_los(s, vsp)
+	print "= Integrating the J-factor numerically using scipy.integrate.nquad ="
 
-	print "\n= scipy.integrate line-integral ="
 	tstart = time.time()
-	jfac, err = integrate.quad(rfo, 0.0, vsp.rmax)
+	jfac, err = integrate.nquad(svslib.py_nfw_polarproj_rho, **quadargs)
 	tend = time.time()
-	print ' J-factor = ', jfac, "err = ", err
-	print ' dt = %.5e' % (tend-tstart)
+	print ' j-factor = %f, err = %.5e, ncall = %d, dt = %.5e' % (jfac, err, 0, tend-tstart)
 
-	print "\n= C adaptive quadrature line-integral ="
 	tstart = time.time()
-	jfac = _hps.adaptive_quadrature(vsp)
+	vavg, err = integrate.nquad(svslib.py_nfw_polarproj_vel, **quadargs)
 	tend = time.time()
-	print ' J-factor = ', jfac
-	print ' dt = %.5e' % (tend-tstart)
+	vavg /= jfac
+	print ' mean velocity = %f, err = %.5e, ncall = %d, dt = %.5e' % (vavg, err, 0, tend-tstart)
 
-	print "\n= scipy.integrate 3D FOV ="
 	tstart = time.time()
-	_hps.py_set_default_params()	
-	jfac, err = integrate.nquad(_hps.py_integral, ranges=((0.0, vsp.rmax), (0.0, vsp.theta), (0.0, 2*np.pi)))
-	#jfac, err = integrate.nquad(_hps.py_integral, ranges=((0.0, 1.0), (0.0, 1.0), (0.0, 2*np.pi)))
+	sigv, err = integrate.nquad(svslib.py_nfw_polarproj_sigv, args=[vavg], **quadargs)
 	tend = time.time()
-	omega = 2*np.pi*(1.0-np.cos(vsp.theta));
-	jfac /= omega #* vsp.rmax 
-	err /= omega #* vsp.rmax
-	print ' J-factor = ', jfac, "err = ", err
-	print ' dt = %.5e' % (tend-tstart)
-
-
-	print "\n= C adaptive quadrature 3D FOV ="
-	tstart = time.time()
-	jfac = _hps.aq_fov(vsp)
-	tend = time.time()
-	print ' J-factor = ', jfac
-	print ' dt = %.5e' % (tend-tstart)
+	sigv /= jfac
+	sigv **= 0.5
+	print ' line width = %f, err = %.5e, ncall = %d, dt = %.5e' % (sigv, err, 0, tend-tstart)
 
 	print "\n"
 
 
+
+
+'''
+####### deprecated code ########
+
+# wrapper for C LOS implementation
+svslib.aq_los.argtypes = (POINTER(c_double), POINTER(c_double), \
+		POINTER(c_int), c_double, POINTER(vsParams),)
+svslib.aq_los.restype = (c_int);
+def integrateLOS(vsp, tol=1.0e-4):
+	result = c_double() 
+	err = c_double()
+	ncall = c_int()
+	if not svslib.aq_los(byref(result), byref(err), byref(ncall), tol, vsp):
+		raise RuntimeError("Stack overflow in integration\n") 
+	return result.value, err.value, ncall.value
+
+# wrapper for C FOV implementation
+svslib.aq_fov.argtypes = (POINTER(c_double), POINTER(c_double), POINTER(c_int), \
+		c_double, POINTER(vsParams))
+svslib.aq_fov.restype = (c_int);
+def integrateFOV(vsp, tol=1.0e-4):
+	result = c_double() 
+	err = c_double()
+	ncall = c_int()
+	if not svslib.aq_fov(byref(result), byref(err), byref(ncall), tol, vsp):
+		raise RuntimeError("Stack overflow in integration\n") 
+	return result.value, err.value, ncall.value
+
+
+
+
+	#print "\n= C adaptive quadrature line-integral ="
+	#tstart = time.time()
+	#jfac, err, ncall = integrateLOS(vsp)
+	#tend = time.time()
+	#jfac *= omega
+	#err*= omega
+	#print ' j-factor = %f, err = %.5e, ncall = %d' % (jfac, err, ncall)
+	#print ' dt = %.5e' % (tend-tstart)
+
+	#print "\n= C adaptive quadrature 3D FOV ="
+	#tstart = time.time()
+	#jfac, err, ncall = integrateFOV(vsp, tol=1.0e2)
+	#tend = time.time()
+	#print ' j-factor = %f, err = %.5e, ncall = %d' % (jfac, err, ncall)
+	#print ' dt = %.5e' % (tend-tstart)
+
+
+
+	#print "\n= scipy.integrate line-integral ="
+	#tstart = time.time()
+	#jfac, err = integrate.quad(svslib.py_nfw_los, 0.0, vsp.rmax)
+	#tend = time.time()
+	#jfac *= omega
+	#err*= omega
+	#print ' j-factor = %f, err = %.5e, ncall = %d, dt = %.5e' % (jfac, err, 0, tend-tstart)
+	#print info
+
+
+
+'''
 
 
