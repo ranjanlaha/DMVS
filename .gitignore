@@ -2,10 +2,12 @@
 *.swp
 *.o
 *.so
-dmvs.aux
-dmvs.bbl
-dmvs.blg
-dmvs.log
-dmvs.out
+*.pyc
+.*
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
 dmvsNotes.bib
 
