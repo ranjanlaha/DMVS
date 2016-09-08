@@ -8,8 +8,10 @@
 #define ONE_OVER_FOUR_PI 0.07957747154 
 #define STACKSZ 256
 
+
 // forward declarations
 double rho_nfw(double r);
+double menc_nfw(double r);
 double rho_nfw_cart(double* pos);
 double rho_nfw_los(double s);
 double sigv_nfw_cart(double* pos, double* los);
@@ -18,14 +20,14 @@ void transform_to_cartesian(double* fovc, double* cart, double* los);
 // struct of constants to be set from Python code
 typedef struct {
 	double rsun, vsun; // geometry of the sun relative to the halo center
-	double Rs, rho0; // NFW profile parameters
+	double Rs, rho0, Rvir; // NFW profile parameters
 	double b, l; // line-of-sight angles
 	double theta, rmax; // field-of-view parameters
 	double cosb, cosl, sinb, sinl; // precomputed geometry for speed
+#define NPOINT_SIGMA 2048 
+	double sigv[NPOINT_SIGMA+1], dr; // velocity dispersion table 
 } vs_params;
 static vs_params vsp;
-
-
 
 // set the static parameters struct from Python
 void py_set_params(vs_params* py_vsp) {
@@ -83,11 +85,20 @@ double py_nfw_polarproj_sigv(int n, double* args) {
 	return result;
 }
 
+double py_sigv2_integrand(int n, double* args) {
+	double r = args[0];
+	return rho_nfw(r)*menc_nfw(r)/(r*r);
+}
 
 // NFW density profile
 double rho_nfw(double r) {
 	double x = r/vsp.Rs;
 	return vsp.rho0/(x*(1.0+x)*(1.0+x));
+}
+
+double menc_nfw(double r) {
+	return FOUR_PI*vsp.rho0*vsp.Rs*vsp.Rs*vsp.Rs
+			*(log((vsp.Rs+r)/vsp.Rs)-r/(vsp.Rs+r));
 }
 
 // NFW density profile, Cartesian coordinates
@@ -102,7 +113,37 @@ double rho_nfw_los(double s) {
 
 // velocity dispersion along the LOS given cartesian coordinates
 double sigv_nfw_cart(double* pos, double* los) {
-	return 0.0;
+
+	int i;
+	double sigv, mu, tmp; 
+	double y0, y1, y2, y3, mu2, a0, a1, a2, a3;;
+	double r = sqrt(pos[0]*pos[0]+pos[1]*pos[1]+pos[2]*pos[2]);
+	
+	// interpolation of the tabulated sigma(r)
+	if(r < vsp.Rvir) { 
+		tmp = r/vsp.dr;
+		i = floor(tmp);
+		mu = tmp - i;
+
+		// piecewise-linear (not smooth enough)
+		//sigv = vsp.sigv[i]*mu + vsp.sigv[i+1]*(1.0-mu);
+
+		// catmull-rom interpolation
+		if(i > 0) y0 = vsp.sigv[i-1];
+		else y0 = -vsp.sigv[1];
+		y1 = vsp.sigv[i];
+		y2 = vsp.sigv[i+1];
+		if(i < NPOINT_SIGMA-1) y3 = vsp.sigv[i+2];
+		else y3 = -vsp.sigv[NPOINT_SIGMA-1];
+		mu2 = mu*mu;
+		a0 = -0.5*y0 + 1.5*y1 - 1.5*y2 + 0.5*y3;
+		a1 = y0 - 2.5*y1 + 2*y2 - 0.5*y3;
+		a2 = -0.5*y0 + 0.5*y2;
+		a3 = y1;
+		sigv = (a0*mu*mu2+a1*mu2+a2*mu+a3);
+	}
+	else sigv = 0.0;
+	return sigv;
 }
 
 // transform from the polar FOV coordinates to cartesian coordinates

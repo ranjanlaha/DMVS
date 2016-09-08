@@ -124,6 +124,77 @@ def spectroscopy_healpix(pos, vel, partmass, nside=16, sigma_energy=0.0003639950
 	ret_dict = {'centroid': center, 'sigma_centroid': sigma_center, 'flux': flux}
 	return ret_dict 
 
+# compute the observed DM decay line centroid uncertainty for an NFW profile
+import speedyVS as svs
+reload(svs)
+def spectroscopy_analytic(Rs=19.78, Rvir=276.3, rho0=6.912562e6, lon=[-85., -65., -45., -25., 0., 25., 45., 65., 85.], lat=25.0,
+		aperture=1.0, exposure=300.0, fov=0.3789224, sigma_energy=0.0003639950, theta_sample=20.0):
+	
+	### Sterile neutrino parameters from Bulbul+2014 ###
+	# TODO: Assumes 3.5 keV observing energy for now!!!
+	en = 3.5 # keV photons
+	m_x = 7.1 # mass in keV
+	Gamma = (1.38e-29)*(7e-4)*(7.1)**5 # decay rate in s^-1
+
+	# Get the number of background photons for this observation 
+	background = aperture*exposure*fov*integrate_background(en, sigma_energy)
+	
+	# mash all model parameters into a prefactor with correct unit conversions, 
+	# to get the photon number count into the detector
+	prefac = Gamma*aperture*exposure/(4.*np.pi*m_x) # decay rate, aperture, exposure time, solid angle
+	prefac *= 1.12e63 # number of sterile neutrinos per simulation particle
+	prefac *= 1.050265e-43 # put aperture in units of kpc^2
+
+	# setup parameters
+	vsp = svs.vsParams(rsun=8.0, vsun=220.0, Rs=Rs, Rvir=Rvir, rho0=rho0, theta=theta_sample)
+	
+	# sample and plot
+	lonr = np.array(lon)
+	cenr = np.zeros_like(lonr)
+	sigr = np.zeros_like(lonr)
+	ctsr = np.zeros_like(lonr)
+	for i, l in enumerate(lon): 
+
+		# setup parameters 
+		vsp.setLOS(b=lat, l=l)
+		quadargs = {'ranges': ((0.0, vsp.rmax), (0.0, vsp.theta), (0.0, 2*np.pi)),}
+
+		# numerically integrate the flux, mean velocity, and dispersion
+		# get the fractional energy shift from the speed of light
+		jfac, err = integrate.nquad(svs.svslib.py_nfw_polarproj_rho, **quadargs)
+		vavg, err = integrate.nquad(svs.svslib.py_nfw_polarproj_vel, **quadargs)
+		vavg /= jfac
+		sigv, err = integrate.nquad(svs.svslib.py_nfw_polarproj_sigv, args=[vavg], **quadargs)
+		sigv /= jfac
+		sigv **= 0.5
+		vavg /= 3.0e5
+		sigv /= 3.0e5
+		
+		# effective line width when convolved with Astro-H's energy resolution
+		sigma_eff = (sigv**2 + sigma_energy**2)**0.5
+		
+		# get the photon number count for the given exposure
+		Ns = prefac*jfac
+		
+		# Cramer-Rao bound for backgrounds
+		C_R = cramer_rao(sig=Ns, bg=background)
+		
+		# the error in the centroid according to Poisson stats
+		sigma_center = C_R * sigma_eff * Ns**-0.5
+
+		# append to return values
+		cenr[i] = vavg 
+		sigr[i] = sigma_center
+		ctsr[i] = Ns 
+
+		print '.', # print a little progress indicator
+
+	print ''
+	ret_dict = {'l': lonr, 'centroid': cenr, 'sigma_centroid': sigr, 'counts': ctsr}
+	return ret_dict 
+
+
+
 # radially bins particles to create a mass profile for the halo
 # returns rho(r) and M_enc(r)
 def mass_profile(pos, vel, partmass, rmin=0.68, rmax=300., nbins=100):
