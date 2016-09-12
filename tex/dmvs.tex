@@ -26,6 +26,7 @@
 \titlespacing*{\subsection}{1cm}{2em}{1em}
 
 \newcommand{\bvec}[1]{\mathbf{#1}}
+\newcommand{\units}[1]{\,\mathrm{#1}}
 \newcommand{\comments}[1]{}
 
 \graphicspath{{../img/}}
@@ -146,13 +147,13 @@ which we can compare with a regular Gaussian to derive $\sigma_E = (E/c) \sigma_
 \label{sec:simulations}
 
 Our main contribution in this paper is to examine the potential of velocity spectroscopy using
-more physically realistic N-body simulations, as compared to analytic models using an NFW profile.
+N-body simulations, as compared to analytic models using an NFW profile.
 To this end, we study a suite of Milky Way analogues run using the L-GADGET cosmology code
 (a descendant of GADGET-2, \cite{springel2005}). These are dark-matter-only zoom-in simulations 
 run by \cite{mao2015} to study subhalo abundance, and their high resolution and multiple
 realizations makes them suitable for our purposes as well. Each halo has $\mathcal{O}(10^7)$
-high-resolution particles with a particle mass $m_p=4.0\times10^5\, \mathrm{M_{\odot}}$ and total 
-mass $M_{\mathrm{vir}}\simeq1.2\times10^{12}\,\mathrm{M_{\odot}}$ (note that here, we quote the masses in physical rather than comoving
+high-resolution particles with a particle mass $m_p=4.0\times10^5\units{M_{\odot}}$ and total 
+mass $M_{\mathrm{vir}}\simeq1.2\times10^{12}\units{M_{\odot}}$ (note that here, we quote the masses in physical rather than comoving
 units).
 
 \begin{figure}[h!]
@@ -172,7 +173,7 @@ halo more spherical \cite{debattista2008, bryan2013}. As such, we choose to limi
 Halo 374, while acknowledging the existence of an effect due to triaxiality. 
 We discuss this further in Section \ref{sec:results}.
 
-\todo{turn halo374 into an illustration of the sampling method rather than just a picture of the halo?}
+%\todo{turn halo374 into an illustration of the sampling method rather than just a picture of the halo?}
 
 \subsection{Velocity spectroscopy using simulations}
 \label{sec:simulations}
@@ -250,36 +251,49 @@ The width of the Doppler-broadened line is then $\sigma_E = (E/c) \sigma_v$. In 
 between this analytic form for the line width and its true histogram.
 
 
-\subsection{Counting uncertainy in the line centroid}
+\subsection{Model observation by Micro-X}
+\label{sec:microx}
 
-We adopt the same model as \cite{speckhard2016} when treating the number counting statistics in the
+The number of photons due to sterile neutrino decay $N_s$ is dependent on the instrumental
+parameters as well as the flux. We consider obervations using the Micro-X sounding rocket \cite{Figueroa-Feliciano:2015gwa}
+with pointings over a range of longitudes $\ell$ at an elevation $b=25^\circ$
+above the Galactic plane in order to avoid foreground emission from within the galaxy. This
+elevation does not significantly decrease the strength of a line detection, as can be seen in Figure
+\ref{fig:skymap}.
+
+For Micro-X, we have the spectral resolution $\sigma_\mathrm{inst}=1.3\units{eV}$ at the line energy
+$E=3.5\units{keV}$. The other observing parameters are the exposure time $t_\mathrm{exp} = 300
+\units{s}$, effective area $A_\mathrm{eff}=1\units{cm^2}$, and field of view
+$\Omega=0.38\units{str}$ (see Table 1 of \cite{Figueroa-Feliciano:2015gwa}) for a
+total exposure $X_{MX} = 114 \units{cm^2\,str\,s}$ (for comparison, a $2\units{Ms}$ Hitomi
+observation has $X_{AH} = 300 \units{cm^2\,str\,s}$). A typical sterile neutrino decay flux at $3.5\units{keV}$ from
+the Milky Way halo at $b=25^\circ$ is $\mathcal{F}\sim 0.05 \units{photons\,cm^{-2}\,str^{-1}\,s^{-1}}$ 
+for a signal count $N_s \sim 3-12 \units{photons}$, depending on $\ell$ (see Section
+\ref{sec:results}). 
+
+We model the background $N_b$ using the cosmic X-ray background model of \cite{ajello2008},
+$$
+\left( \frac{dN}{dE} \right)_\mathrm{CXB} = \frac{C}{(E/E_B)^{\Gamma_1}+(E/E_B)^{\Gamma_2}}
+$$
+where $C=10.15\times 10^{-2} \units{photons\,cm^{-2}\,str^{-1}\,s^{-1}\,kev^{-1}}$,
+$E_B=29.99\units{keV}$,
+$\Gamma_1=1.32$, and $\Gamma_2=2.88$. For our model observation, $N_b \sim 1 \units{photon}$ per
+pointing. 
+
+We adopt the same model as \cite{speckhard2016} when treating the photon counting statistics in the
 energy of a decay line. The uncertainty in the energy of the line centroid is given by
 \begin{equation} 
-	\sigma_\mathrm{cent} = (\sigma_E^2 + \sigma_\mathrm{inst}^2)^{1/2} \, C(N_s/N_b) \, N_s^{-1/2}
+	\sigma_\mathrm{cent} = (\sigma_E^2 + \sigma_\mathrm{inst}^2)^{1/2} \, C(N_b/N_s) \, N_s^{-1/2}
 \label{eq:stats}
 \end{equation}
 where $\sigma_\mathrm{inst}$ is the instrumental uncertainty in energy (corresponding to the spectral
 resolution), $N_s$ and $N_b$ are the number of signal and background photons, respectively, and
-$C(R)=\sqrt{1+4R}$ is the optimal Cramer-Rao bound \cite{} for the given signal-to-background ratio.
+$C(R)=\sqrt{1+4R}$ is factor given by the Cramer-Rao bound \cite{} for the given signal-to-background ratio.
 
-We model $N_b$ using the cosmic X-ray background model of \cite{ajello2008},
-$$
-\left( \frac{dN}{dE} \right)_\mathrm{CXB} = \frac{C}{(E/E_B)^{\Gamma_1}+(E/E_B)^{\Gamma_2}}
-$$
-where $C=10.15\times 10^{-2} \, \mathrm{photons\,cm^{-2}\,s^{-1}\,str^{-1}\,kev^{-1}}$,
-$E_B=29.99\,\mathrm{keV}$,
-$\Gamma_1=1.32$, and $\Gamma_2=2.88$. For the spectral resolution of Micro-X, this yields a
-background flux at 3.5 keV of .....
-
-We compute the figure of merit... 
-
-\todo{Integral of the BG flux for a given spectral resolution?}
-
-\subsection{Micro-X and future observations}
-
-
-
-
+Our figure of merit for a detection of a Doppler-shifted line is the probability that the data
+exclude zero shifting. In other words, we consider the energy shift of the line centroid
+away from $\delta E/E=0$ in units of $\sigma_\mathrm{cent}$. This most strongly depends on $N_s$,
+which we discuss in the results section. 
 
 \section{Results and discussion}
 \label{sec:results}
@@ -297,15 +311,32 @@ detected at small $\ell$. The second is that the mean velocity along the line-of
 the dark matter increases with $\ell$ (up to $\ell=90^\circ$), shifting the observed line further
 from $\delta E/E=0$.
 
-\subsection{Significance of a detection}
+We also briefly address the fact that halo triaxiality can bias the significance of a detection to
+the east or west of the galactic center. When observing above the Galactic plane (in this work,
+$b=25^\circ$) any ellipticity of the Galactic halo on the sky can give a higher flux to one side of
+$\ell=0^\circ$ than the other. While the mean prediciton for the line centroid matches the analytic model
+for a spherical halo quite well, observing to one side of the GC allows one to exclude $\delta
+E/E=0$ with higher significance due to better photon counting statistics. This is illustrated in Figure \ref{fig:triax}.
+
+
+
+
+
+%\subsection{Significance of a detection}
 While $1.5\sigma$ is certainly not significant enough to claim a detection for a single pointing, there is ample reason to
-be optimistic about this result. First of all is the fact that the uncertainty in the line centroid
+be optimistic about this result. 
+
+First of all is the fact that the uncertainty in the line centroid
 scales as $\sigma_{\mathrm{cent}} \propto N_s^{-1/2}$ (see \eqref{}). This further implies that
 $\sigma_{\mathrm{cent}} \propto t_\mathrm{exp}^{-1/2}$. In other words, to achieve a $\sim 6\sigma$
 exclusion of $\delta E/E=0$ one would need an instrument comparable to Micro-X, but simply observe
 for $\sim 16$ times longer. 
 
-%Secondly, when 
+Second, when multiple pointings are considered in a joint analysis against the analytic model, the
+global significance of a detection will be higher than simply the confirmation of a Doppler-shifted
+line at one location on the sky. Because our analytic model requires numerical integrals, a Markov
+Chain Monte Carlo will be required to constrain the parameter space for a detection between the
+model and observed photons. We reserve this study for future work.
 
 \begin{figure}[h!]
 \centering
@@ -360,8 +391,8 @@ FOV of Micro-X on the sky for four pointings. }
 
 
 
-\subsection{Halo triaxiality}
-\label{sec:triaxiality}
+%\subsection{Halo triaxiality}
+%\label{sec:triaxiality}
 
 \begin{figure}[h!]
 \centering
@@ -377,14 +408,6 @@ FOV of Micro-X on the sky for four pointings. }
 the lower plot.}
 \label{fig:triax}
 \end{figure}
-
-
-Here, we briefly address the fact that halo triaxiality can bias the significance of a detection to
-the east or west of the galactic center. When observing above the Galactic plane (in this work,
-$b=25^\circ$) any ellipticity of the Galactic halo on the sky can give a higher flux to one side of
-$\ell=0^\circ$ than the other. While the mean prediciton for the line centroid matches the analytic model
-for a spherical halo quite well, observing to one side of the GC allows one to exclude $\delta
-E/E=0$ with higher significance due to better photon counting statistics. This is illustrated in Figure \ref{fig:triax}.
 
 %While this is not expected to 
 
