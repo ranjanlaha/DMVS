@@ -287,8 +287,16 @@ energy of a decay line. The uncertainty in the energy of the line centroid is gi
 \label{eq:stats}
 \end{equation}
 where $\sigma_\mathrm{inst}$ is the instrumental uncertainty in energy (corresponding to the spectral
-resolution), $N_s$ and $N_b$ are the number of signal and background photons, respectively, and
-$C(R)=\sqrt{1+4R}$ is factor given by the Cramer-Rao bound \cite{} for the given signal-to-background ratio.
+resolution), $N_s$ and $N_b$ are the number of signal and background photons, respectively,
+We also briefly address the fact that halo triaxiality can bias the significance of a detection to
+the east or west of the galactic center. When observing above the Galactic plane (in this work,
+$b=25^\circ$) any ellipticity of the Galactic halo on the sky can give a higher flux to one side of
+$\ell=0^\circ$ than the other. While the mean prediciton for the line centroid matches the analytic model
+for a spherical halo quite well, observing to one side of the GC allows one to exclude $\delta
+E/E=0$ with higher significance due to better photon counting statistics. This is illustrated in Figure \ref{fig:triax}.
+
+ and
+ $C(R)=\sqrt{1+4R}$ is factor given by the Cramer-Rao bound \cite[e.g.]{james2006statistical} for the given signal-to-background ratio.
 
 Our figure of merit for a detection of a Doppler-shifted line is the probability that the data
 exclude zero shifting. In other words, we consider the energy shift of the line centroid
@@ -385,7 +393,7 @@ model and observed photons. We reserve this study for future work.
 	Bottom: The signicance of the detection of Doppler shifting of a dark matter decay line,
 indicating the number of $\sigma$ by which $\delta E/E=0$ can be excluded for a Micro-X-like
 observation. Black circles indicate the
-FOV of Micro-X on the sky for four pointings. }
+FOV of Micro-X on the sky for the six pointings used in Figure \ref{fig:de_vs_l}. }
 \label{fig:skymaps}
 \end{figure}
 
@@ -405,7 +413,8 @@ FOV of Micro-X on the sky for four pointings. }
 \end{subfigure}
 \caption{Asymmetry of the Milky Way halo (here, Halo 800 with $b/a=$ and $c/a=$) could skew the significance of the
 	observed signal to the east or west. Each field of view (black circles in the sky map) corresponds to a data point in
-the lower plot.}
+the lower plot. The gray shaded region indicates the $1\sigma$ uncertainties for the analytic model
+derived from a spherical NFW profile fit to this halo.}
 \label{fig:triax}
 \end{figure}
 
