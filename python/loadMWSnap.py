@@ -117,9 +117,16 @@ def loadMWSnap(halo=937, snap=235, verbose=True):
 		# relative to the halo center
 		allpos[ids] = pos-cm
 		allvel[ids] = vel-cv
+	
+	# put in physical units
+	halodata['mvir'] /= hubble
+	halodata['rvir'] /= hubble
+	halodata['rs'] /= hubble
+	allpos *= 1.0e3/hubble
+	mpp *= 1.0e10/hubble
 
 	# return in physical units
 	# position in physical kpc, velocity in km/s, particle mass in physical m_sun
-	return 1.0e3*allpos/hubble, allvel, 1.0e10*mpp/hubble, ldim, halodata
+	return allpos, allvel, mpp, ldim, halodata
 
 

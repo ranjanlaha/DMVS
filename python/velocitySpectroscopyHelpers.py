@@ -2,6 +2,35 @@ import numpy as np
 import healpy as hp
 import scipy.integrate as integrate
 
+# convenience function to load all N-body data
+haloesWithVSData = [268, 288, 374, 414, 416, 460, 490, 558, 570, 628, 878, 530, 800, 852, 926, 937, 8247, 567]
+def loadSpectroscopyData(halo=374):
+	nbody = {}
+	with open('../data/halo%d.nbody'%halo, 'rb') as f:
+		ndata = np.fromfile(f, dtype=np.int32, count=1)
+		nbody['l'] = np.fromfile(f, dtype=np.float64, count=ndata)
+		nbody['cen'] = np.fromfile(f, dtype=np.float64, count=ndata)
+		nbody['sig'] = np.fromfile(f, dtype=np.float64, count=ndata)
+		nbody['Ns'] = np.fromfile(f, dtype=np.float64, count=ndata)
+		nbody['Nb'] = np.fromfile(f, dtype=np.float64, count=ndata)
+	analy = {}
+	with open('../data/halo%d.analytic'%halo, 'rb') as f:
+		ndata = np.fromfile(f, dtype=np.int32, count=1)
+		analy['l'] = np.fromfile(f, dtype=np.float64, count=ndata)
+		analy['cen'] = np.fromfile(f, dtype=np.float64, count=ndata)
+		analy['sig'] = np.fromfile(f, dtype=np.float64, count=ndata)
+		analy['Ns'] = np.fromfile(f, dtype=np.float64, count=ndata)
+		analy['Nb'] = np.fromfile(f, dtype=np.float64, count=ndata)
+	fill = {}
+	with open('../data/halo%d.fill'%halo, 'rb') as f:
+		ndata = np.fromfile(f, dtype=np.int32, count=1)
+		fill['l'] = np.fromfile(f, dtype=np.float64, count=ndata)
+		fill['cen'] = np.fromfile(f, dtype=np.float64, count=ndata)
+		fill['sig'] = np.fromfile(f, dtype=np.float64, count=ndata)
+		fill['Ns'] = np.fromfile(f, dtype=np.float64, count=ndata)
+		fill['Nb'] = np.fromfile(f, dtype=np.float64, count=ndata)
+	return nbody, analy, fill
+
 # filters particle data into a cone based on latitude and longitude of the los
 # along with the angular radius of the sampling cone
 # default los is the fiducial observing direction from Speckhard+2016
@@ -78,7 +107,7 @@ def spectroscopy(pos, vel, partmass, lon=[-85., -65., -45., -25., 0., 25., 45., 
 		print '.', # print a little progress indicator
 
 	print ''
-	ret_dict = {'l': lonr, 'centroid': cenr, 'sigma_centroid': sigr, 'counts': ctsr}
+	ret_dict = {'l': lonr, 'cen': cenr, 'sig': sigr, 'Ns': ctsr, 'Nb': background*np.ones_like(lonr)}
 	return ret_dict 
 
 # compute the observed DM decay line centroid uncertainty for the given N-body data and
@@ -190,7 +219,7 @@ def spectroscopy_analytic(Rs=19.78, Rvir=276.3, rho0=6.912562e6, lon=[-85., -65.
 		print '.', # print a little progress indicator
 
 	print ''
-	ret_dict = {'l': lonr, 'centroid': cenr, 'sigma_centroid': sigr, 'counts': ctsr}
+	ret_dict = {'l': lonr, 'cen': cenr, 'sig': sigr, 'Ns': ctsr, 'Nb': background*np.ones_like(lonr)}
 	return ret_dict 
 
 
