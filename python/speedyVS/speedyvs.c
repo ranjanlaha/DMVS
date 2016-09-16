@@ -1,5 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
+#include <time.h>
 
 #define PI_OVER_THREE 1.0471975512
 #define PI 3.14159265359 
@@ -19,7 +21,7 @@ void transform_to_cartesian(double* fovc, double* cart, double* los);
 
 // struct of constants to be set from Python code
 typedef struct {
-	double rsun, vsun; // geometry of the sun relative to the halo center
+	double pos_sun[3], vel_sun[3]; // geometry of the sun relative to the halo center
 	double Rs, rho0, Rvir; // NFW profile parameters
 	double b, l; // line-of-sight angles
 	double theta, rmax; // field-of-view parameters
@@ -54,8 +56,9 @@ double py_nfw_polarproj_vel(int n, double* args) {
 	transform_to_cartesian(args, cart, los);
 	result = rho_nfw_cart(cart);
 
-	// y-component of the LOS
-	vlos = los[1]*vsp.vsun;
+	// LOS velocity
+	vlos = -(los[0]*vsp.vel_sun[0]
+		+los[1]*vsp.vel_sun[1]+los[2]*vsp.vel_sun[2]);
 	result *= vlos;
 
 	// weight by the solid angle element
@@ -71,10 +74,10 @@ double py_nfw_polarproj_sigv(int n, double* args) {
 	result = rho_nfw_cart(cart);
 
 	// mean LOS velocity (already computed)
-	// y-component of the LOS
 	// velocity dispersion along the LOS
 	vavg = args[3];
-	vlos = los[1]*vsp.vsun;
+	vlos = -(los[0]*vsp.vel_sun[0]
+		+los[1]*vsp.vel_sun[1]+los[2]*vsp.vel_sun[2]);
 	siglos = sigv_nfw_cart(cart, los);
 
 	// weight by the mean (relative to the line centroid) and dispersion
@@ -84,6 +87,95 @@ double py_nfw_polarproj_sigv(int n, double* args) {
 	result *= sin(args[1]);
 	return result;
 }
+
+void py_nbody(double* pos, double* vel, int npart, 
+		double* jret, double* cenret, double* sigret) {
+
+	int p, i;
+	double r, j, vlos;
+	double tpos[3], tvel[3];
+	double nlos[3] = {-vsp.cosl*vsp.cosb, vsp.sinl*vsp.cosb, vsp.sinb};
+	double costheta = cos(vsp.theta);
+
+	double jfac = 0.0;
+	double center = 0.0;
+	double sigma = 0.0;
+	for(p = 0; p < npart; ++p) {
+
+		// get the distance to the particle 
+		// skip if the particle is outside the fov
+		for(i = 0; i < 3; ++i) {
+			tpos[i] = pos[3*p+i] - vsp.pos_sun[i];
+			tvel[i] = vel[3*p+i] - vsp.vel_sun[i];
+		}
+		r = sqrt(tpos[0]*tpos[0]+tpos[1]*tpos[1]+tpos[2]*tpos[2]);
+		if(tpos[0]*nlos[0]+tpos[1]*nlos[1]+tpos[2]*nlos[2] < r*costheta) 
+			continue;
+	
+		// add to the j-factor
+		j = 1.0/(r*r);
+		vlos = (tpos[0]*tvel[0]+tpos[1]*tvel[1]+tpos[2]*tvel[2])/r;
+		jfac += j; 
+		center += j*vlos;
+		sigma += j*vlos*vlos;
+	}
+
+	// return
+	center /= jfac;
+	sigma /= jfac;
+	*jret = jfac;
+	*cenret = center;
+	*sigret = sqrt(sigma-center*center);
+}
+
+// Poisson-distributed random number generator,
+// good for small lambda
+int poisson_knuth(double lam) {
+	int k = 0;
+	double l = exp(-lam);
+	double p = 1.0;
+	do {
+		k++;
+		p *= ((double)rand())/RAND_MAX;	
+	} while(p > l);
+	return k-1;
+}
+
+void py_nbody_photons(double* pos, double* vel, int npart, double ratefac,
+		double* sampout, int* nsamp) {
+
+	srand(time(NULL));
+
+	// rate factor in kpc^2, just multiply by r^2 to get the mean photons
+	// emitted by a simulation particle during the exposure
+
+	int p, i, poiss;
+	double r, vlos;
+	double tpos[3], tvel[3];
+	double nlos[3] = {-vsp.cosl*vsp.cosb, vsp.sinl*vsp.cosb, vsp.sinb};
+	double costheta = cos(vsp.theta);
+
+	*nsamp = 0;
+	for(p = 0; p < npart; ++p) {
+
+		// get the distance to the particle 
+		// skip if the particle is outside the fov
+		for(i = 0; i < 3; ++i) {
+			tpos[i] = pos[3*p+i] - vsp.pos_sun[i];
+			tvel[i] = vel[3*p+i] - vsp.vel_sun[i];
+		}
+		r = sqrt(tpos[0]*tpos[0]+tpos[1]*tpos[1]+tpos[2]*tpos[2]);
+		if(tpos[0]*nlos[0]+tpos[1]*nlos[1]+tpos[2]*nlos[2] < r*costheta) 
+			continue;
+	
+		// Poisson-sample each individual particle by its effective rate 
+		vlos = (tpos[0]*tvel[0]+tpos[1]*tvel[1]+tpos[2]*tvel[2])/r;
+		poiss = poisson_knuth(ratefac/(r*r));
+		for(i = 0; i < poiss; ++i)
+			sampout[(*nsamp)++] = vlos;
+	}
+}
+
 
 double py_sigv2_integrand(int n, double* args) {
 	double r = args[0];
@@ -104,11 +196,6 @@ double menc_nfw(double r) {
 // NFW density profile, Cartesian coordinates
 double rho_nfw_cart(double* pos) {
 	return rho_nfw(sqrt(pos[0]*pos[0]+pos[1]*pos[1]+pos[2]*pos[2])); 
-}
-
-// NFW density at location along an oblique LOS from the sun 
-double rho_nfw_los(double s) {
-	return rho_nfw(sqrt(s*s + vsp.rsun*vsp.rsun - 2*s*vsp.rsun*vsp.cosb*vsp.cosl));
 }
 
 // velocity dispersion along the LOS given cartesian coordinates
@@ -170,8 +257,7 @@ void transform_to_cartesian(double* fovc, double* cart, double* los) {
 
 	// scale by r, shift to the sun's position
 	int i;
-	for(i = 0; i < 3; ++i) cart[i] = r*los[i];
-	cart[0] += vsp.rsun;
+	for(i = 0; i < 3; ++i) cart[i] = r*los[i]+vsp.pos_sun[i];
 }
 
 
@@ -191,6 +277,12 @@ void transform_to_cartesian(double* fovc, double* cart, double* los) {
 double py_nfw_los(double s) {
 	return rho_nfw_los(s); 
 }
+
+// NFW density at location along an oblique LOS from the sun 
+//double rho_nfw_los(double s) {
+	//return rho_nfw(sqrt(s*s + vsp.rsun*vsp.rsun - 2*s*vsp.rsun*vsp.cosb*vsp.cosl));
+//}
+
 
 //////// My own adaptive quadrature routines /////////
 

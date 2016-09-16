@@ -9,7 +9,7 @@ from readGadgetSnapshot import readGadgetSnapshot
 
 # all the haloes that retain the proper output data files
 allHaloes = [268, 288, 374, 414, 416, 460, 490, 558, 570, 628, 878, 881, 530, 800,\
-		852, 926, 937, 9829, 415, 8247, 567, 675, 14, 469, 641, 569, 573, 9749, 349, 967]
+		852, 926, 937, 9829, 415, 8247, 567, 675, 469, 641, 9749, 349, 967]
 baseDir = '/nfs/slac/g/ki/ki21/cosmo/yymao/mw_resims/halos'
 
 def loadMWSnap(halo=937, snap=235, verbose=True):
@@ -29,6 +29,7 @@ def loadMWSnap(halo=937, snap=235, verbose=True):
 
 
 	# load the target halo data from the first line of hlists
+	targid = np.loadtxt(targethaloname, usecols=(0,), dtype=np.int64)
 	if verbose:
 		print "Reading rockstar output", hlistname 
 	with open(hlistname) as f:
@@ -51,39 +52,16 @@ def loadMWSnap(halo=937, snap=235, verbose=True):
 				dtype=np.dtype([('id', np.int64), ('mvir', np.float64), ('rvir', np.float64), ('rs', np.float64),
 					('last_mm_scale', np.float64), ('cm', np.float64, (3,)), ('cv', np.float64,
 						(3,)), ('b_to_a', np.float64), ('c_to_a', np.float64)]))
-			break
+			
+			# stop if we have found the correct halo
+			if halodata['id'] == targid:
+				break
 
 	# check that we have found the correct target halo
-	targid = np.loadtxt(targethaloname, usecols=(0,), dtype=np.int64)
 	if targid != halodata['id']:
-		raise ValueError("Bad target halo ID!")
+		raise ValueError("Target halo ID not found!")
 	cm = halodata['cm']
 	cv = halodata['cv']
-
-	#z_last_merger = 1./halodata['last_mm_scale']-1.
-	#print "last major merger at z =", z_last_merger
-	#print "Concentration = rvir/rs =", halodata['rvir']/halodata['rs'] 
-
-	'''
-	# Read rockstar output to identify the main halo 
-	if verbose:
-		print "Reading rockstar output", rockname 
-	rockraw = np.loadtxt(rockname, usecols=(2,7,8,9,10,11,12,13), dtype=np.dtype([('mvir', np.float64),\
-				('np', np.int32), ('cm', np.float64, (3,)), ('cv', np.float64, (3,))]))
-    
-	# find the n_halo most massive haloes
-	n_halo = 2
-	sinds = np.argpartition(rockraw['np'], -n_halo)[-n_halo:]
-	sinds = sinds[np.argsort(rockraw['np'][sinds])][::-1]
-	mv1 = rockraw['mvir'][sinds[0]]
-	cm = rockraw['cm'][sinds[0]]
-	cv = rockraw['cv'][sinds[0]]
-	mv2 = rockraw['mvir'][sinds[1]]
-	mtot = np.sum(rockraw['mvir'])
-	if verbose:
-		print "Found largest halo with M_vir = %.5e,"%mv1, "CM =", cm, ", CV =", cv
-		print "Second-largest halo has M_vir = %.5e,"%mv2, "%.1f%% of the total mass, %.5e"%(100.0*mv2/mtot, mtot)
-	'''
 
 	# read MUSIC output to identify the refined patch dimensions
 	if verbose:
@@ -122,6 +100,8 @@ def loadMWSnap(halo=937, snap=235, verbose=True):
 	halodata['mvir'] /= hubble
 	halodata['rvir'] /= hubble
 	halodata['rs'] /= hubble
+	#c = halodata['rvir']/halodata['rs']
+	#halodata['rho0'] = halodata['mvir']/(4*np.pi*halodata['rs']**3*(np.log(1+c)-c/(1+c))) 
 	allpos *= 1.0e3/hubble
 	mpp *= 1.0e10/hubble
 
