@@ -9,5 +9,8 @@
 *.blg
 *.log
 *.out
+python/np
+python/time
+python/integrate
 dmvsNotes.bib
 
