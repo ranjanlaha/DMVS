@@ -4,6 +4,8 @@
 \usepackage{graphicx}
 \usepackage{amsfonts,amsmath,amssymb,bm,bbm}
 \usepackage{color}
+\usepackage{caption}
+\usepackage{subcaption}
 
 \hypersetup{
     pdfnewwindow=true,      % links in new window
@@ -131,10 +133,18 @@ We evaluate the potential of dark matter velocity spectroscopy using dark-matter
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.9\columnwidth]{halo374.png}
-\caption{Halo 374.  \textcolor{red}{Need to write more in the caption.  Especially what does the color scale indicate?  People use the color scale to indicate the density squared or density.  What have you taken?  Since we are mainly focusing on decaying dark matter, it will be better to use the color scale to indicate density.}}
+%\includegraphics[width=0.9\columnwidth]{halo374.png}
+\includegraphics[width=0.9\columnwidth]{vspec_diagram.png}
+\caption{The projected column density of Halo 374, the most spherical halo in the suite of
+	simulations used here. The color scale is linear in density,
+corresponding to the dark matter decay rate. The diagram illustrates the basic principle of velocity
+spectroscopy: X-ray photons due to sterile netrino decay are collected from within the field
+of view (lighter shaded region) at the Sun's position, 8 kpc from the halo center. The net blue- or redshift of observed photons 
+is determined by the line of sight relative to the Sun's velocity. In this simple model, the energy
+shift $\delta E/E=(v_\odot/c)\sin(\ell)$.}
 \label{fig:halo374}
 \end{figure}
+
 
 Among the 46 halo realizations, we focus on one halo, Halo 374, (Figure\,\ref{fig:halo374}) in detail. This is the most spherically-symmetric halo, with principal axis ratios $b/a=0.86$ and $c/a=0.73$.  We choose this halo to facilitate the comparison of our results with a spherically symmetric generalized NFW profile of the halo.  Dark-matter-only simulations produce triaxial halos, but recent hydrodynamical simulations have shown that the inclusion of baryons tend to sphericalize a halo\,\cite{Debattista:2007yz,Bryan:2012mw,Bernal:2014mmt,Bernal:2016guq}.
 
@@ -165,26 +175,36 @@ where $v_p$ is the velocity of particle $p$ projected along the line of sight to
 considering the LOS velocity of each particle independently, we automatically capture the spectral
 convolution introduced by the bulk velocity dispersion. 
 
-We focus here on the special case where $dN/dE$ is a line due to sterile neutrino decay.  The parameters of the sterile neutrino are those favored by the 3.5 keV line\,\cite{Bulbul:2014sua}.  In this case, computing the observed spectrum is then as simple as building a flux-weighted histogram of the line-of-sight velocities for all particles in the sampling cone, though as we will see it is easier to forgo binning and compute the line width directly. See Figure\,\ref{fig:dfde} for an illustration.  \textcolor{red}{I am not sure what you mean by the last sentence.}
+We focus here on the special case where $dN/dE$ is a line due to sterile neutrino decay.  The
+parameters of the sterile neutrino are those favored by the 3.5 keV line\,\cite{Bulbul:2014sua}.  In
+this case, computing the observed spectrum is then as simple as building a flux-weighted histogram
+of the line-of-sight velocities for all particles in the sampling cone. In practice we find
+$d\mathcal{F}/dE$ to be roughly Gaussian, so we forgo binning and compute the line width directly
+from the variance in LOS particle velocities. See Figure \ref{fig:dfde} for an illustration. 
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1.0\columnwidth]{dnde_demo.png}
-\caption{We plot the normalized $d\mathcal{F}/dE$ versus the fractional shift in the energy $\delta E/E$ (the x-axis is multiplied by 1000 for clarity).   The field of view is centered at $(\ell, b) = (25^\circ, 25^\circ)$, and $(-65^\circ, 25^\circ)$.  The dashed line is a Gaussian model fit to the analytical calculation, whereas the histogram is calculated directly from the simulations.}
+\caption{We plot the normalized $d\mathcal{F}/dE$ versus the fractional shift in the energy $\delta
+E/E$ (the x-axis is multiplied by 1000 for clarity). The field of view is centered at $(\ell, b) =
+(25^\circ, 25^\circ)$, and $(-65^\circ, 25^\circ)$.
+	This compares the empirical histograms (solid) for the observed line spectrum
+	$d\mathcal{F}/dE$ against their Gaussian models (dashed) as computed using \eqref{eq:simcenter} and \eqref{eq:simsigma}.
+	The Gaussian approximation gives a good fit to the data and allows us to forgo binning in practice.}
 \label{fig:dfde}
 \end{figure}
 
 The flux-weighted mean line-of-sight velocity for a field of view is 
 \begin{eqnarray} 
-	\langle v\rangle =\frac{1}{\mathcal{F}} \frac{\Gamma}{4\pi m_s} \sum_{p \, \in \, \Omega}
+	\langle v_{LOS} \rangle =\frac{1}{\mathcal{F}} \frac{\Gamma}{4\pi m_s} \sum_{p \, \in \, \Omega}
 	\, \frac{m_p}{r_p^{2}} \, v_p
 \label{eq:simcenter}
 \end{eqnarray}
 For non relativistic velocities, the mean Doppler shift (the observed shift in the energy of the line) is $\langle \delta E\rangle = (E/c)\langle v \rangle$.  We compute the width of the observed line $\sigma_E$ directly by finding the flux-weighted
 variance of the line-of-sight velocities $v_p$:
 \begin{equation} 
-	\sigma_v^2 =\frac{1}{\mathcal{F}} \frac{\Gamma}{4\pi m_s} \sum_{p \, \in \, \Omega}
-	\, \frac{m_p}{r_p^{2}} \left(v_p-\langle v\rangle\right)^2 
+	\sigma_{v_{LOS}}^2 =\frac{1}{\mathcal{F}} \frac{\Gamma}{4\pi m_s} \sum_{p \, \in \, \Omega}
+	\, \frac{m_p}{r_p^{2}} \left(v_p-\langle v_{LOS}\rangle\right)^2 
 \label{eq:simsigma}
 \end{equation}
 The width of the Doppler-broadened line is then $\sigma_E = (E/c) \sigma_v$. 
@@ -194,9 +214,13 @@ We compare the line width and shift computed analytically and directly from simu
 \subsection{Model observation by Micro-X}
 \label{sec:microx}
 
-The instrument that we focus on in this work is Micro-X\,\cite{Figueroa-Feliciano:2015gwa}.  It is a direct successor to the XQC sounding rocket experiment\,\cite{McCammon:2002gb,Boyarsky:2006hr,Crowder:2012ts}.  We follow the parameters of the instrument near 3.5 keV as mentioned in\,\cite{Figueroa-Feliciano:2015gwa}: field of view: 20$^\circ$ radius, effective area = 1 cm$^2$, and an exposure time = 300 s. 
+The instrument that we focus on in this work is Micro-X\,\cite{Figueroa-Feliciano:2015gwa}.  It is a
+direct successor to the XQC sounding rocket
+experiment\,\cite{McCammon:2002gb,Boyarsky:2006hr,Crowder:2012ts}.  We follow the parameters of the
+instrument near 3.5 keV as mentioned in\,\cite{Figueroa-Feliciano:2015gwa}: 20$^\circ$ radius field
+of view, effective area = 1 cm$^2$, and an exposure time = 300 s. 
 
-To minimize contamination by the Galactic plane, we focus on field of views which are centered at $b = 25^\circ$ for various different Galactic longitudes, $\ell$.  This choice is a compromise between the decreasing signal strength away from the Galactic Center, and the more rapidly decreasing background away from the Galactic plane.  A typical sterile neutrino decay flux at $3.5$ keV from
+To minimize contamination by the Galactic plane, we focus on fields of view which are centered at $b = 25^\circ$ for various different Galactic longitudes, $\ell$.  This choice is a compromise between the decreasing signal strength away from the Galactic Center, and the more rapidly decreasing background away from the Galactic plane.  A typical sterile neutrino decay flux at $3.5$ keV from
 the Milky Way halo at $b=25^\circ$ is $\mathcal{F}\sim 0.05$ photons\,cm$^{-2}$\,str$^{-1}$\,s$^{-1}$ 
 for a signal count $N_s \sim 3-12$ photons, depending on $\ell$. 
 
@@ -214,12 +238,124 @@ $C(R)=\sqrt{1+4R}$ is factor given by the Cramer-Rao bound for the given signal-
 
 Our figure of merit for a detection of a Doppler-shifted line is the probability that the data
 exclude zero shifting. In other words, we consider the energy shift of the line centroid
-away from $\delta E/E=0$ in units of $\sigma_\mathrm{cent}$. This most strongly depends on $N_s$,
-which we discuss in the results section.  \textcolor{red}  {I think we need to change the last two paragraphs --- it will depend on the statistical analysis that you are doing now. }
+away from $\delta E/E=0$ in units of $\sigma_\mathrm{cent}$.
+We obtain a global significance by summing the significances (the
+number of $\sigma$ by which $\delta E/E$ is excluded) for each
+pointing in quadrature.
 
 
 \section{Results}
 \label{sec:results}
+
+Our velocity spectroscopy analysis on N-body data reveals three main insights.
+
+The first is that our analytic model matches the N-body calculation
+extremely well ($\chi^2_\mathrm{red}=1.8\times 10^{-3}$).  We summarize this result in Figure
+\ref{fig:de_vs_l}. Furthermore, the simple sinusoid model given by $\Delta E/E
+= v_\odot \sin \ell \cos b$ (corresponding to the limit in which the field of view radius goes to
+zero) also matches the analytic model for Micro-X to within a few percent over the entire range of
+$\ell$ ($\chi^2_\mathrm{red}=5.7\times 10^{-3}$). This line-of-sight integral is thus
+a sufficient approximation to a large field of view instrument for the given exposure. Since
+$\chi^2_\mathrm{red} \propto N_s$, these two models are 
+only differentiable by observations $\sim 100$ times longer.  
+This suggests that for further studies, this sinusoid model is more than sufficient and may be
+used to quickly explore the parameter space of haloes (e.g. with a Markov chain Monte Carlo) with minimal loss of precision.
+
+The second main result is that combining the observed line energies from the six pointings modeled
+here ($\ell=\pm25^\circ,\pm65^\circ,\pm105^\circ$ with $b=25^\circ$) can exclude
+$\delta E/E = 0$ globally at $\geq 3\sigma$.  Halo 374 gives a combined significance of
+$3.2\sigma$. This significance scales as $N_s^{1/2}$ (see \eqref{eq:stats}), giving cause for
+optimism in the case of future dedicated experiments with better photon counts.
+
+The pointings $\ell$ centered around $\pm75^\circ$ exclude $\delta E/E=0$ with 
+the highest significance, at $\sim 1.5\sigma$. $\ell\sim\pm75^\circ$ optimizes between two
+competing effects. The first is the higher J-factor, hence higher
+photon flux, nearer the Galactic center, giving a smaller uncertainty in the energy of a line
+detected at small $\ell$. The second is that the mean velocity along the line-of-sight relative to
+the dark matter increases with $\ell$ (up to $\ell=90^\circ$), shifting the observed line further
+from $\delta E/E=0$. We illustrate this effect using sky maps in Figure \ref{fig:skymaps}.
+Future observations should focus on these longitudes
+in order to achieve the best potential detection of this Doppler shift.
+
+Finally, we find that halo triaxiality can bias the significance of a detection to
+the east or west of the galactic center. When observing above the Galactic plane (in this work,
+$b=25^\circ$) any ellipticity of the Galactic halo on the sky can give a higher flux to one side of
+$\ell=0^\circ$ than the other. While the mean prediciton for the line centroid matches the analytic model
+for a spherical halo quite well, observing to one side of the GC allows one to exclude $\delta
+E/E=0$ with higher significance due to better photon counting statistics. This is illustrated in Figure \ref{fig:triax}.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=1.0\columnwidth]{de_vs_l.png}
+\caption{Velocity spectroscopy on the Milky Way analogue Halo 374. This shows the position of the observed line centroid due to sterile
+	neutrino decay as a function of Galactic longitude $\ell$, with latitude $b=25^\circ$.
+	Here we compare results as computed from the N-body simulation (see Section \ref{sec:simulations}) for the
+	instrumental parameters of Micro-X against our analytic model (Section
+	\ref{sec:theory}) as well as a simple sinusoidal model, showing excellent agreement between the
+	three. Note that the error bars represent the $1\sigma$ uncertainty
+in the energy of the line centroid, given by \eqref{eq:stats}, rather than the Doppler-broadened width of the line.}
+\label{fig:de_vs_l}
+\end{figure}
+
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[width=1.0\columnwidth]{de_vs_l.png}
+%\caption{Velocity spectroscopy of the Milky Way halo, giving the position of the observed line centroid due to sterile
+	%neutrino decay as a function of Galactic longitude $\ell$, with latitude $b=25^\circ$. This
+	%compares results as computed from an N-body simulation (Halo 374; see Section \ref{sec:simulations}) for the
+	%instrumental parameters of Micro-X against our analytic model (Section
+	%\ref{sec:theory}), showing good agreement.	
+	%Note that the error bars here represent the 1-$\sigma$ uncertainty
+	%in the energy of the line centroid, rather than the Doppler-broadened width of the line.}
+%\label{fig:de_vs_l}
+%\end{figure}
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[b]{1.0\columnwidth}
+	\includegraphics[width=\textwidth]{flux_map_374.png}
+\subcaption{Flux.}
+\end{subfigure}
+\par\medskip
+\begin{subfigure}[b]{1.0\columnwidth}
+	\includegraphics[width=\textwidth]{line_map_374.png}
+\subcaption{Doppler-shifted line centroid.}
+\end{subfigure}
+\par\medskip
+\begin{subfigure}[b]{1.0\columnwidth}
+	\includegraphics[width=\textwidth]{sigma_map_374.png}
+\subcaption{Exclusion of the line centroid from $\delta E/E=0$.}
+\end{subfigure}
+\caption{Sky maps illustrating the principle of velocity spectroscopy. Top: The flux map. Middle:
+	The dipole pattern in the line energy induced by our motion relative to the Milky Way halo.
+	Bottom: The signicance of the detection of Doppler shifting of a dark matter decay line,
+indicating the number of $\sigma$ by which $\delta E/E=0$ can be excluded for a Micro-X-like
+observation. Black circles indicate the
+FOV of Micro-X on the sky for the six pointings used in Figure \ref{fig:de_vs_l}. }
+\label{fig:skymaps}
+\end{figure}
+
+
+
+%\subsection{Halo triaxiality}
+%\label{sec:triaxiality}
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[b]{1.0\columnwidth}
+	\includegraphics[width=\textwidth]{flux_map_800.png}
+\end{subfigure}
+\par\medskip
+\begin{subfigure}[b]{1.0\columnwidth}
+	\includegraphics[width=\textwidth]{de_vs_l_800.png}
+\end{subfigure}
+\caption{Asymmetry of the Milky Way halo (here, Halo 800 with $b/a=$ and $c/a=$) could skew the significance of the
+	observed signal to the east or west. Each field of view (black circles in the sky map) corresponds to a data point in
+the lower plot. The gray shaded region indicates the $1\sigma$ uncertainties for the analytic model
+derived from a spherical NFW profile fit to this halo.}
+\label{fig:triax}
+\end{figure}
+
 
 
 
