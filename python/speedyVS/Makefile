@@ -2,17 +2,20 @@
 
 # HealPix directories
 HEALPIX_HOME = /lustre/ki/pfs/dmpowel1/Healpix_3.30
+CFIO_HOME = /lustre/ki/pfs/dmpowel1/cfitsio
 
 # directories and object/lib versions
-SRC = speedyvs.c 
+SRC = modelfit.c sampling.c healpix_f90_wrapper.c nelder-mead/nelder_mead.c 
 OBJ = $(patsubst %.c, %.o, $(SRC))
-SO = $(patsubst %.c, %.so, $(SRC))
-INC = #-I$(HEALPIX_HOME)/include 
+COM = Makefile svs.h GNU_dv.h 
+SO = speedyvs.so 
 
 # compiler options
 CC = gcc
-CFLAGS += -shared -fPIC -Wall -O3
-LDFLAGS += -lm #-L$(HEALPIX_HOME)/lib -l:libchealpix.so
+INC = -I. -Inelder-mead
+CFLAGS = -fPIC -shared -Wall -O3 
+LDFLAGS = -lm 
+LDFLAGS += -L$(HEALPIX_HOME)/libf90 -L$(CFIO_HOME)/lib -lhealpix -lcfitsio -lgfortran
 
 all: $(SO) 
 
@@ -21,7 +24,7 @@ $(SO): $(OBJ)
 	$(CC) $(OBJ) -o $@ $(LIB) $(LDFLAGS) $(CFLAGS)
 
 # compile
-%.o: %.c Makefile 
+%.o: %.c $(COM) 
 	$(CC) -c -o $@ $(INC) $(CFLAGS) $< 
 
 clean:

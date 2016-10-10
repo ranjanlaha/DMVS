@@ -31,7 +31,7 @@ def loadMWSnap(halo=937, snap=235, verbose=True):
 	# load the target halo data from the first line of hlists
 	targid = np.loadtxt(targethaloname, usecols=(0,), dtype=np.int64)
 	if verbose:
-		print "Reading rockstar output", hlistname 
+		print " Reading rockstar output", hlistname 
 	with open(hlistname) as f:
 		for line in f:
 			if line.startswith('#'):
@@ -65,7 +65,7 @@ def loadMWSnap(halo=937, snap=235, verbose=True):
 
 	# read MUSIC output to identify the refined patch dimensions
 	if verbose:
-		print "Reading MUSIC log", musicname 
+		print " Reading MUSIC log", musicname 
 	with open(musicname) as f:
 		for l in f:
 			if 'Level  13 :   offset' in l:
@@ -73,12 +73,12 @@ def loadMWSnap(halo=937, snap=235, verbose=True):
 				ldim = tuple(map(lambda s: int(s.strip().rstrip(')')), l.partition('(')[2].split(',')))
 				break
 	if verbose:
-		print "Lagrangian patch dimensions are", ldim
+		print " Lagrangian patch dimensions are", ldim
 
 	# read the snapshot
 	if verbose:
-		print "Reading Gadget snapshot", snapname 
-	part_type = 1 # dark matter particles only
+		print " Reading Gadget snapshot", snapname 
+	part_type = 1
 	
 	for i in xrange(8):
 		header, pos, vel, ids = readGadgetSnapshot('%s.%d'%(snapname, i),
