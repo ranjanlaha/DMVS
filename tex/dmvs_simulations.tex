@@ -172,12 +172,12 @@ valid over a wide range of particle masses.
 \begin{figure}[h!]
 \centering
 %\includegraphics[width=0.9\columnwidth]{halo374.png}
-\includegraphics[width=0.9\columnwidth]{vspec_diagram.png}
+\includegraphics[width=0.99\columnwidth]{vspec_diagram.png}
 \caption{The projected column density of Halo 374, the most spherical halo in the suite of
-	simulations used here. The color scale is linear in density,
-corresponding to the dark matter decay rate. The diagram illustrates the basic principle of velocity
+	simulations used here. The color scale is given in units of the photon flux at
+the distance of the Sun, 8 kpc from the halo center. The diagram illustrates the basic principle of velocity
 spectroscopy: X-ray photons due to sterile netrino decay are collected from within the field
-of view (lighter shaded region) at the Sun's position, 8 kpc from the halo center. The net blue- or redshift of observed photons 
+of view (shaded triangle) at the Sun's position. The net blue- or redshift of observed photons 
 is determined by the line of sight relative to the Sun's velocity. In this simple model, the energy
 shift $\delta E/E=(v_\odot/c)\sin\ell$.}
 \label{fig:halo374}
@@ -191,13 +191,18 @@ Although hydrodynamical models are investigated by many groups, yet it is not kn
 \subsection{Velocity spectroscopy using simulations}
 \label{sec:simulations}
 
-In order to generalize the analytical methods presented in Sec.\,\ref{sec:theory} to a simulation containing N-body particles, we simply convert the integration to a sum over the N-body particles.  This is similar in spirit to the ``sightline'' method employed by \cite{Lovell:2014lea} and the velocity distribution function sampling of \cite{Mao:2012hf}.  We construct the full spectral intensity seen by the detector directly from the N-body particles, incorporating Doppler shift and velocity dispersion.   
+In order to generalize the analytical methods presented in Sec.\,\ref{sec:theory} to a simulation
+containing N-body particles, we simply convert the integration to a sum over the N-body particles.
+This is similar in spirit to the ``sightline'' method employed by \cite{Lovell:2014lea} and the
+velocity distribution function sampling of \cite{Mao:2012hf}.  We construct the full spectral
+intensity seen by the detector directly from the N-body particles, incorporating Doppler shift and
+velocity dispersion in a natural way.   
 
-The dark matter density field, $\rho({\bf{x}})$, in a position {\bf x} in an N-body simulation is effectively a sum of Dirac-$\delta$ functions:
-\begin{eqnarray}
-\rho({\bf{x}}) = \sum_p\, m_p \, \delta({\bf{x}} - {\bf{x}_p}) \, ,
-\end{eqnarray}
-where $\bf{x}_p$ and $m_p$ are the position and mass of particle $p$. 
+%The dark matter density field, $\rho({\bf{x}})$, in a position {\bf x} in an N-body simulation is effectively a sum of Dirac-$\delta$ functions:
+%\begin{eqnarray}
+%\rho({\bf{x}}) = \sum_p\, m_p \, \delta({\bf{x}} - {\bf{x}_p}) \, ,
+%\end{eqnarray}
+%where $\bf{x}_p$ and $m_p$ are the position and mass of particle $p$. 
 
 The total flux can be found by integrating the differential flux in Eqn.\,\ref{eq:double differential for the flux} over the energy and solid angle.  Implementing this in an N-body simulation implies a summation over all of the particles, $p$, within the field of view, $\Omega$, and weighting by the inverse square of the scalar distance to the observer, $r^{-2}_p$:
 \begin{eqnarray} 
@@ -256,27 +261,57 @@ The instrument that we focus on in this work is Micro-X\,\cite{Figueroa-Felician
 direct successor to the XQC sounding rocket
 experiment\,\cite{McCammon:2002gb,Boyarsky:2006hr,Crowder:2012ts}.  We follow the parameters of the
 instrument near 3.5 keV as mentioned in\,\cite{Figueroa-Feliciano:2015gwa}: 20$^\circ$ radius field
-of view, effective area = 1 cm$^2$, and an exposure time = 300 s. 
+of view, 1 cm$^2$ effective area, 96\% detector efficiency, 300 s exposure time, and 3 eV
+energy resolution (FWHM). 
 
 To minimize contamination by the Galactic plane, we focus on fields of view which are centered at $b = 25^\circ$ for various different Galactic longitudes, $\ell$.  This choice is a compromise between the decreasing signal strength away from the Galactic Center, and the more rapidly decreasing background away from the Galactic plane.  A typical sterile neutrino decay flux at $3.5$ keV from
-the Milky Way halo at $b=25^\circ$ is $\mathcal{F}\sim 0.05$ photons\,cm$^{-2}$\,str$^{-1}$\,s$^{-1}$ 
+the Milky Way halo at $b=25^\circ$ is $\mathcal{F}\sim 0.1$ photons\,cm$^{-2}$\,str$^{-1}$\,s$^{-1}$ 
 for a signal count $N_s \sim 3-12$ photons, depending on $\ell$. 
 
-We model the background $N_b$ using the cosmic X-ray background model of \cite{Ajello:2008xb}.  The use of an alternative model\,\cite{Hickox:2005dz} for the cosmic X-ray background does not alter our conclusions.  For both of these models, we obtain $N_b \sim 1$ photon per pointing. 
+We model the background $N_b$ using the cosmic X-ray background model of \cite{Ajello:2008xb}.  The
+use of an alternative model\,\cite{Hickox:2005dz} for the cosmic X-ray background does not alter our
+conclusions. For our analysis, we consider all photons observed in the range
+$3.5\units{keV}\pm10.5\units{eV}$. This range contains all of the expected signal and captures
+sufficient background counts for signal and background to be differentiated effectively. The
+background spectrum is constant to within 1\% over this small range, so we fit a flat spectrum in
+our analysis. A typical background count in this energy window is $N_b \sim 3$ photons per pointing.
 
-We adopt the same model as \cite{speckhard2016} when treating the photon counting statistics in the
-energy of a decay line. The uncertainty in the energy of the line centroid is given by
-\begin{equation} 
-	\sigma_\mathrm{cent} = (\sigma_E^2 + \sigma_\mathrm{inst}^2)^{1/2} \, C(N_b/N_s) \, N_s^{-1/2}
-\label{eq:stats}
-\end{equation}
-where $\sigma_\mathrm{inst}$ is the instrumental uncertainty in energy (corresponding to the spectral
-resolution), $N_s$ and $N_b$ are the number of signal and background photons, respectively, and
-$C(R)=\sqrt{1+4R}$ is factor given by the Cramer-Rao bound for the given signal-to-background ratio.
+A major challenge in this work is differentiating between small numbers of signal vs. background photons in
+order to determine the line energy. To this end, we use an extended maximum likelihood analysis for
+each pointing $\ell$.  This is an unbinned analysis described by \cite{barlow1990} which allows us to estimate
+the signal parameters $\delta_E$ and $\sigma_E$ as well as the signal and background counts $N_s$
+and $N_b$ simultaneously. \cite{Figueroa-Feliciano:2015gwa} uses this analysis as well, as it gives
+good fits to unbinned data for small number counts. 
+
+Our likelihood function is
+\begin{multline}
+	\mathcal{L}(\delta_E, \sigma_E, N_s, N_b; \{E_i\}) =\\
+	\frac{e^{-(N_s+N_b)}}{N!} \prod_{i=1}^{N}
+	\left(\frac{N_s e^{\frac{-(E_i-\delta_E)^2}{2(\sigma_E^2+\sigma_\mathrm{instr}^2)}}}
+	{\sqrt{2\pi(\sigma_E^2+\sigma_\mathrm{instr}^2)}}+\frac{N_b}{\lambda_b}\right)
+\end{multline}
+Fixed parameters are the total number
+of observed photons $N$, the energy range over which the likelihood is fit $\lambda_b=21 \units{eV}$, 
+and the Gaussian equivalent instrumental energy resolution $\sigma_\mathrm{instr}=1.3 \units{eV}$. The use of $\sigma_\mathrm{instr}$
+in our fit models the uncertainty in the observed photon energies $E_i$ and serves to regularize the problem.
+
+
+%We adopt the same model as \cite{speckhard2016} when treating the photon counting statistics in the
+%energy of a decay line. The uncertainty in the energy of the line centroid is given by
+%\begin{equation} 
+	%\sigma_\mathrm{cent} = (\sigma_E^2 + \sigma_\mathrm{inst}^2)^{1/2} \, C(N_b/N_s) \, N_s^{-1/2}
+%\label{eq:stats}
+%\end{equation}
+%where $\sigma_\mathrm{inst}$ is the instrumental uncertainty in energy (corresponding to the spectral
+%resolution), $N_s$ and $N_b$ are the number of signal and background photons, respectively, and
+%$C(R)=\sqrt{1+4R}$ is factor given by the Cramer-Rao bound for the given signal-to-background ratio.
 
 Our figure of merit for a detection of a Doppler-shifted line is the probability that the data
 exclude zero shifting. In other words, we consider the energy shift of the line centroid
-away from $\delta E/E=0$ in units of $\sigma_\mathrm{cent}$.
+away from $\delta E/E=0$ in units of $\sigma_\mathrm{cent}$, the uncertainty in the line energy.
+\cite{barlow1990} gives a prescription for obtaining the covariance matrix between the four fitted
+parameters, which we use to compute $\sigma_\mathrm{cent}$. This naturally incorporates the Poisson errors due to
+$N_s$ and $N_b$, so that (roughly) $\sigma_\mathrm{cent} \sim N_s^{-1/2}$ as expected. 
 We obtain a global significance by summing the significances (the
 number of $\sigma$ by which $\delta E/E$ is excluded) for each
 pointing in quadrature.
@@ -367,7 +402,7 @@ in the energy of the line centroid, given by \eqref{eq:stats}, rather than the D
 \caption{Sky maps illustrating the principle of velocity spectroscopy. Top: The flux map. Middle:
 	The dipole pattern in the line energy induced by our motion relative to the Milky Way halo.
 	Bottom: The signicance of the detection of Doppler shifting of a dark matter decay line,
-indicating the number of $\sigma$ by which $\delta E/E=0$ can be excluded for a Micro-X-like
+indicating the number of $\sigma$ by which $\delta E/E=0$ can be excluded for a Micro-X
 observation. Black circles indicate the
 FOV of Micro-X on the sky for the six pointings used in Figure \ref{fig:de_vs_l}. }
 \label{fig:skymaps}
