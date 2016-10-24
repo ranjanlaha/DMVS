@@ -1,11 +1,12 @@
-\documentclass[aps,prd,10pt,twocolumn,superscriptaddress,showpacs]{revtex4-1}
-\usepackage{titlesec}
+\documentclass[aps,prd,10pt,twocolumn,superscriptaddress,showpacs,footinbib]{revtex4-1}
+\pdfoutput=1
+%\usepackage{titlesec}
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{amsfonts,amsmath,amssymb,bm,bbm}
 \usepackage{color}
-\usepackage{caption}
-\usepackage{subcaption}
+%\usepackage{caption}
+%\usepackage{subcaption}
 
 \hypersetup{
     pdfnewwindow=true,      % links in new window
@@ -16,19 +17,19 @@
     urlcolor=blue        % color of external links
 }
 
-\titleformat{\section}[runin]
-  {\normalfont\bfseries}{\thesection}{1em}{}[:]
-\titlespacing*{\section}{0cm}{2em}{1em}
-\titleformat{\subsection}[runin]
-  {\normalfont\itshape}{\thesubsection}{1em}{}[:]
-\titlespacing*{\subsection}{1cm}{2em}{1em}
+%\titleformat{\section}[runin]
+ % {\normalfont\bfseries}{\thesection}{1em}{}[:]
+%\titlespacing*{\section}{0cm}{2em}{1em}
+%\titleformat{\subsection}[runin]
+ % {\normalfont\itshape}{\thesubsection}{1em}{}[:]
+%\titlespacing*{\subsection}{1cm}{2em}{1em}
 
-\titleformat{\section}[runin]
-  {\normalfont\bfseries}{\thesection}{1em}{}[:]
-\titlespacing*{\section}{0cm}{2em}{1em}
-\titleformat{\subsection}[runin]
-  {\normalfont\itshape}{\thesubsection}{1em}{}[:]
-\titlespacing*{\subsection}{1cm}{2em}{1em}
+%\titleformat{\section}[runin]
+ % {\normalfont\bfseries}{\thesection}{1em}{}[:]
+%\titlespacing*{\section}{0cm}{2em}{1em}
+%\titleformat{\subsection}[runin]
+ % {\normalfont\itshape}{\thesubsection}{1em}{}[:]
+%\titlespacing*{\subsection}{1cm}{2em}{1em}
 
 \newcommand{\bvec}[1]{\mathbf{#1}}
 \newcommand{\br}[0]{\mathbf{r}}
@@ -40,7 +41,7 @@
 
 \begin{document}
 
-\title{The Doppler effect on indirect detection of dark matter}
+\title{The Doppler effect on indirect detection of dark matter for high energy resolution telescopes}
 \author{Devon Powell}
 \email{dmpowel1@stanford.edu}
 \affiliation{Kavli Institute for Particle Astrophysics and Cosmology (KIPAC),
@@ -62,7 +63,7 @@
 \date{\today}
 
 \begin{abstract}
-The indirect detection of dark matter holds great promise.  However, baryonic backgrounds are diverse enough to mimic many possible signatures of dark matter.  In this work, we study in detail the newly proposed technique of dark matter velocity spectroscopy\,\cite{speckhard2016}.  Using collisionless dark matter only simulations, we show that this new signature is robust and holds great promise.  We use mock observations by Micro-X and our test case is the 3.5 keV line.  We emphasize that this {\it new smoking gun} signature of dark matter is general, and is applicable to any sharp photon feature arising due to dark matter annihilation or decay.
+Indirect detection of dark matter is a major avenue for discovery.  However, baryonic backgrounds are diverse enough to mimic many possible signatures of dark matter.  In this work, we study in detail the newly proposed technique of dark matter velocity spectroscopy\,\cite{speckhard2016}.   The non-rotating dark matter halo and the Solar motion produce a distinct longitudinal dependence of the signal which is opposite in direction to that produced by baryons.  Using collisionless dark matter only simulations of the Milky Way, we show that this new signature is robust and holds great promise.  We develop mock observations by Micro-X to our test case: 3.5 keV line.  We show that by using six different pointings, Micro-X can exclude a constant line energy over various longitudes at $\geq$ 3$\sigma$.  The halo triaxiality is an important effect and it can reduce the significance of this signal.  We emphasize that this new {\it smoking gun in motion} signature of dark matter is general, and is applicable to any sharp photon feature arising due to dark matter annihilation or decay.
 \end{abstract}
 
 %\pacs{95.35.+d, 13.35.Hb, 14.60.St, 14.60.Pq}
@@ -80,17 +81,19 @@ The indirect detection of dark matter holds great promise.  However, baryonic ba
 
 The search for the particle properties of dark matter is one of the most important research avenues\,\cite{Jungman:1995df,Bertone:2004pz,Strigari:2013iaa}.  The ``weak" interactions experienced by the dark matter particle complicates these searches.  Despite decades of multi-pronged searches, we have not yet identified the dark matter particle\,\cite{Bertone:2016nfn}.  One of the most important ways to search for dark matter particles is indirect detection\,\cite{Klasen:2015uma}.
 
-Many anomalous signals have been interpreted as arising from dark matter interactions\,\cite{Loewenstein:2009cm,Prokhorov:2010us,Weniger:2012tx,Abazajian:2014hsa,Lee:2015fea,Bartels:2015aea,Bulbul:2014sua,Boyarsky:2014jta,Urban:2014yda}.  Astrophysical sources such as pulsars or atomic lines are diverse enough to mimic a dark matter signal\,\cite{O'Leary:2015gfa,Brandt:2015ula,O'Leary:2016osi,Gu:2015gqm,Phillips:2015wla,Shah:2016efh}.  The separation of signal and background is difficult since one needs to model these in the same data set.  Taking lessons from all these misadventures, it is prudent to ask for new methods to cleanly separate the signal and background.  This is especially important since there are many viable dark matter candidates which can only be detected via astrophysical observations.  
+Many anomalous signals have been interpreted as arising from dark matter interactions\,\cite{Elsaesser:2004ap,Loewenstein:2009cm,Prokhorov:2010us,Weniger:2012tx,Huang:2013pda,Gordon:2013vta,Daylan:2014rsa,Abazajian:2014hsa,Lee:2015fea,Bartels:2015aea,Bulbul:2014sua,Boyarsky:2014jta,Urban:2014yda}.  Astrophysical sources such as pulsars or atomic lines are diverse enough to mimic a dark matter signal\,\cite{O'Leary:2015gfa,Brandt:2015ula,O'Leary:2016osi,Gu:2015gqm,Phillips:2015wla,Shah:2016efh}.  The separation of signal and background is difficult since one needs to model these in the same data set.  Taking lessons from all these misadventures, it is prudent to ask for new methods to cleanly separate the signal and background.  This is especially important since there are many viable dark matter candidates which can only be detected via astrophysical observations.  
 
 Distinct kinematic signatures arising from dark matter annihilation or decay are used to separate the dark matter signal from background.  These signatures include monochromatic photons arising from dark matter annihilation or decay.  Past experiences have shown that it is not reliable to only depend on this kinematic end point signature for the identification of a dark matter signal.  This raises the question: can we devise a new test of dark matter to confirm indirect detection signals?
 
-Ref.\,\cite{speckhard2016} devised a {\it new smoking gun} test of dark matter in indirect detection.  It utilized the superb energy resolution, $\sim \mathcal{O}$(0.1\%), of Hitomi (previously known as Astro-H) to find the new signature --- dark matter velocity spectroscopy.  Solar motion around the Galaxy produces a distinct longitudinal dependence in the dark matter signal, a signature of Doppler effect.  This new signature is model-independent and applicable to any dark matter signal containing a sharp feature.  It is unlikely that baryonic phenomenon can produce such a distinct signature\,\cite{speckhard2016}.
+Ref.\,\cite{speckhard2016} devised a new {\it smoking gun in motion} test of dark matter in indirect detection.  It utilized the superb energy resolution, $\sim \mathcal{O}$(0.1\%), of Hitomi (previously known as Astro-H) to find the new signature --- dark matter velocity spectroscopy.  Solar motion around the Galaxy produces a distinct longitudinal dependence in the dark matter signal, a signature of Doppler effect.  This new signature is model-independent and applicable to any dark matter signal containing a sharp feature.  It is unlikely that baryonic phenomena can produce such a distinct signature\,\cite{speckhard2016}.
 
-Given the importance of dark matter particle searches, it is important to characterize any new model-independent signature in detail.  While Hitomi had a narrow field of view, it is important to confirm if dark matter velocity spectroscopy can also be performed by a high energy resolution instrument with a wide field of view.  We perform such a study in this work using collisionless dark matter only simulations from Mao etal.\,\cite{mao2015}.  As an example of the dark matter signal, we consider the 3.5 keV line\,\cite{Bulbul:2014sua,Boyarsky:2014jta}.  The status of the 3.5 keV line is controversial\,\cite{Iakubovskyi:2015wma,Jeltema:2015mee,Ruchayskiy:2015onc,Bulbul:2016yop,Aharonian:2016gzq,Hofmann:2016urz,Arguelles:2016uwb,Conlon:2016lxl,Neronov:2016wdd,Perez:2016tcq}.  The malfunctioning of the Hitomi satellite did not permit an observation to conclusively test this signal.  We use future Micro-X observations\,\cite{Figueroa-Feliciano:2015gwa} to demonstrate our technique.  It is expected that Micro-X will have an energy resolution of 3 eV at 3.5 keV\,\cite{Figueroa-Feliciano:2015gwa}, a high enough energy resolution to permit dark matter velocity spectroscopy\,\cite{speckhard2016}.  We emphasize that we are using this 3.5 keV signal as a proxy, and that the underlying physics of dark matter velocity spectroscopy is model-independent. 
+Given the importance of dark matter particle searches, it is important to characterize any new model-independent signature in detail.  While Hitomi had a narrow field of view (FoV), it is important to confirm if dark matter velocity spectroscopy can also be performed by a high energy resolution instrument with a wide field of view.  We perform such a study in this work using collisionless dark matter only simulations from Mao etal.\,\cite{mao2015}.  
 
-There have been many works in which velocity spectroscopy was used to understand baryonic astrophysical emission\,\cite{Dame:2000sp,Diehl:2006cf,Kalberla:2008uu,Kretschmer:2013naa}.  Ref.\,\cite{speckhard2016} first applied this technique analytically to dark matter (see the footnote mentioning private communication by J. Bahcall in\,\cite{Turner:1986vr}).  In this work, we analyze for the {\it first} time dark matter velocity spectroscopy using realistic dark matter simulations 
+As an example of the dark matter signal, we consider the 3.5 keV line\,\cite{Bulbul:2014sua,Boyarsky:2014jta}.  The status of the 3.5 keV line is controversial\,\cite{Riemer-Sorensen:2014yda,Jeltema:2014qfa,Boyarsky:2014ska,Malyshev:2014xqa,Anderson:2014tza,Boyarsky:2014paa,Bulbul:2014ala,Iakubovskyi:2014yxa,Carlson:2014lla,Jeltema:2014mla,Tamura:2014mta,Iakubovskyi:2015dna,Sekiya:2015jsa,Iakubovskyi:2015kwa,Riemer-Sorensen:2015kqa,Iakubovskyi:2015wma,Jeltema:2015mee,Ruchayskiy:2015onc,Bulbul:2016yop,Aharonian:2016gzq,Hofmann:2016urz,Arguelles:2016uwb,Conlon:2016lxl,Neronov:2016wdd,Perez:2016tcq}.  The malfunctioning of the Hitomi satellite did not permit an observation to conclusively test this signal.  We use future Micro-X observations\,\cite{Figueroa-Feliciano:2015gwa} to demonstrate our technique.  It is expected that Micro-X will have an energy resolution of 3 eV at 3.5 keV\,\cite{Figueroa-Feliciano:2015gwa}, a high enough energy resolution to permit dark matter velocity spectroscopy\,\cite{speckhard2016}.  We emphasize that we are using this 3.5 keV signal as a proxy, and that the underlying physics of dark matter velocity spectroscopy is particle physics model-independent. 
 
-Any telescope with $\mathcal{O}$(0.1\%) energy resolution can perform dark matter velocity spectroscopy.  An improvement in the energy resolution is the natural step in the evolution of telescope instrumentation.  This improvement will help in disentangling the dark matter signal from background, and improve our knowledge of the astronomical sources.  For certain wavelengths, it is already known how to build a detector with $\mathcal{O}$(0.1\%) energy resolution, such as INTEGRAL/ SPI\,\cite{2003AA} and Hitomi.  Near future instruments like Micro-X\,\cite{Figueroa-Feliciano:2015gwa}, ATHENA X-IFU\,\cite{Barret:2016ett}, and HERD\,\cite{Wang:2015ema} will also have $\mathcal{O}$(0.1\%) energy resolution.
+There have been many works in which velocity spectroscopy was used to understand baryonic astrophysical emission\,\cite{Dame:2000sp,Diehl:2006cf,Kalberla:2008uu,Kretschmer:2013naa}.  Ref.\,\cite{speckhard2016} first applied this technique analytically to dark matter (see the footnote mentioning private communication by J. Bahcall in\,\cite{Turner:1986vr}).  In this work, we analyze for the {\it first} time dark matter velocity spectroscopy using collisionless dark matter only simulations 
+
+Any telescope with $\mathcal{O}$(0.1\%) energy resolution can perform dark matter velocity spectroscopy.  An improvement in the energy resolution is the natural step in the evolution of telescope instrumentation.  This improvement will help in disentangling the dark matter signal from background, and improve our knowledge of the astronomical sources.  For certain wavelengths, it is already known how to build a detector with $\mathcal{O}$(0.1\%) energy resolution, such as INTEGRAL/ SPI\,\cite{2003AA} and Hitomi\,\cite{Takahashi:2012jn,2014SPIE.9144E..25T}.  Near future instruments like Micro-X\,\cite{Figueroa-Feliciano:2015gwa}, ATHENA X-IFU\,\cite{Barret:2016ett}, and HERD\,\cite{Wang:2015ema,Huang:2015fca} will also have $\sim \mathcal{O}$(0.1\%) energy resolution.
 
 % % % % % % % % % % % METHODS % % % % % % % % % % % % % % % % % % % % % %
 
@@ -118,7 +121,7 @@ _0 ^{s_{\rm max}}  \, ds \, \rho(\br)  \,.
 Here $\mathcal{F}$ denotes the flux in cm$^{-2}$ s$^{-1}$, $\Omega$ denotes the solid angle in str,
 $E$ denotes the energy of the photon in keV, and $\Gamma$ denotes the decay rate (in s$^{-1}$) of
 the dark matter particle of mass $m_s$ (in keV).  The dark matter density (in keV cm$^{-3}$) profile
-is denoted by $\rho(\br)$, and the photon spectrum (in keV$^{-1}$) is denoted by $dN(E)/dE$.  The line of sight distance $s$, varies from 0 to $s_{\rm max}$, where the maximum value of the line of sight distance $s_{\rm max}$ approximately corresponds to the virial radius of the Milky Way halo.
+is denoted by $\rho(\br)$, and the photon spectrum (in keV$^{-1}$) is denoted by $dN(E)/dE$.  The line of sight distance, $s$, varies from 0 to $s_{\rm max}$, where the maximum value of the line of sight distance, $s_{\rm max}$, approximately corresponds to the virial radius of the Milky Way halo.
 
 Observation by a telescope with $\sim$ $\mathcal{O}$(0.1\%) energy resolution modifies this above expression, Eqn.\,\ref{eq:double differential for the flux}, in two important and distinct ways.  First, the photon line is broadened due to the velocity dispersion of the dark matter particles in the Milky Way halo.  Second, the photon energy experiences Doppler shift.  
 
@@ -126,7 +129,7 @@ We take into account the broadening of the line by convolving $dN(E)/dE$ by a Ga
 $\sigma_E = (E/c) \sigma_{v_\los}$\,\cite{speckhard2016}.  Here $\sigma_{v_\los}(\br)$ 
 is the line of sight velocity dispersion of dark matter.  The Gaussian form arises 
 since we consider a Maxwellian dark matter velocity distribution.  The line shape will change if we 
-consider dark matter velocity distribution favored by recent hydrodynamical simulations\,\cite{Bozorgnia:2016ogo,Sloane:2016kyi,Kelso:2016qqj}, 
+consider dark matter velocity distribution favored by recent hydrodynamical simulations\,\cite{Ling:2009eh,Kuhlen:2013tra,Butsky:2015pya,Bozorgnia:2016ogo,Sloane:2016kyi,Kelso:2016qqj}, 
 but we ignore this small difference in this work.  
 
 The broadened line spectrum can be written as 
@@ -166,7 +169,7 @@ An important difference between the narrow field of view and wide field of view 
 encapsulated in the term $E(1 - v_\los(\br)/c)$.  For Hitomi, with a field of view of 9 arcmin$^2$, the maximum value of the line intensity approximately occurs at the center of the field of view.  This is not true for a wide field of view instrument like Micro-X (20$^\circ$ radius field of view).  The maximum value of the line intensity depends on the density profile as is evident from Eqn.\,\ref{eq:double differential for the flux rewritten}.  The line is also wider when compared to that observed in a narrow field of view instrument.    
 
 The shift in the central value of the energy of the widened line is shown by the argument $(E/c)
-v_\los(\br)/c $.  Both the width and observed energy of the line are determined by the position
+v_\los(\br) $.  Both the width and observed energy of the line are determined by the position
 $\br$ of the emission, indicated by $\br$ in the argument of $d\tilde{N}/dE$.
 
 \subsection{Analytic model}
@@ -187,19 +190,19 @@ We begin with the total flux, which is found simply by integrating the J-factor 
 view. 
 \begin{eqnarray}
 \mathcal{F} =  \frac{\Gamma}{4\pi \, m_s} \, \int _\Omega \, \int _0 ^{s_{\rm max}}  \,  d\Omega\,ds
-\, \rho(\br) 
+\, \rho(\br) \, .
 \label{eq:lineflux}
 \end{eqnarray}
-Note that in the limit of a small FOV, the J-factor can be assumed constant over the FOV. As we
-consider a large FOV instrument here, we retain the full form of this integral in our calculations.
+In the limit of a small FoV, the J-factor can be assumed constant over the FoV. As we
+consider a large FoV instrument here, we retain the full form of this integral in our calculations.
 
 The observed Doppler shift is given in terms of the LOS velocity, weighted by the flux:
 \begin{eqnarray}
 	\langle v_\los\rangle &=& \frac{1}{\mathcal{F}}\frac{\Gamma}{4\pi \, m_s} 
-	\int _\Omega \, \int _0 ^{s_{\rm max}}  \, d\Omega\,ds \, \rho(\br) \, v_\los(\br) 
+	\int _\Omega \, \int _0 ^{s_{\rm max}}  \, d\Omega\,ds \, \rho(\br) \, v_\los(\br) \, .
 \label{eq:lineshift}
 \end{eqnarray}
-Again, in the limit of a small FOV, it is easy to see that in terms of Galactic longitude and
+Again, in the limit of a small FoV, it is easy to see that in terms of Galactic longitude and
 latitude $(\ell, b)$, $\langle v_\los\rangle = v_\odot \sin \ell\cos b$. We refer to this hereafter
 as the ``simple sinusoid model''. 
 
@@ -207,7 +210,7 @@ Finally, the Doppler-broadened width of the line can be expressed simply when $d
 \begin{eqnarray}
 	\langle \sigma_{v_\los}^2 \rangle &=& \frac{1}{\mathcal{F}}\frac{\Gamma}{4\pi \, m_s} 
 	\int _\Omega \, \int _0 ^{s_{\rm max}}  \, d\Omega\,ds \, \rho(\br)\nonumber \\ 
-	&\times&   [(v_\los(\br)-\langle v_\los\rangle)^2+\sigma_{v_\los}^2(\br)] 
+	&\times&   [(v_\los(\br)-\langle v_\los\rangle)^2+\sigma_{v_\los}^2(\br)] \, .
 \label{eq:lineshift}
 \end{eqnarray}
 
@@ -220,7 +223,7 @@ We compute these integrals analytically using a standard numerical quadrature ro
 \subsection{Simulations}
 \label{sec:simulations}
 
-Numerical simulations take into account many different processes which participate in dark matter halo formation.  Many signatures of these non linear processes are not taken into account in an analytical model of the dark matter halo.  It is thus important to validate any new signature of dark matter by using realistic simulations of galaxy formation.
+Numerical simulations take into account many different processes which participate in dark matter halo formation.  Many signatures of these non linear processes are not taken into account in an analytical model of the dark matter halo.  It is thus important to validate any new signature of dark matter by using simulations of galaxy formation.
 
 We evaluate the potential of dark matter velocity spectroscopy using collisionless dark-matter-only N-body
 simulations.  We study a suite of Milky Way analogues run using the L-GADGET cosmology code (a
@@ -232,7 +235,7 @@ $M_{\mathrm{vir}}\simeq 10^{12} M_{\odot}$ (masses in physical units). Refer to 
 the full description of the simulation parameters.
 
 A $7\units{keV}$ sterile neutrino, produced by the Shi-Fuller mechanism\,\cite{Shi:1998km}, has a non-negligible free-streaming length and hence introduces a cutoff in
-the matter power spectrum at a wavenumer $k_\mathrm{WDM} \simeq 10 \units{Mpc^{-1}\,h}$
+the matter power spectrum at a wave number $k_\mathrm{WDM} \simeq 10 \units{Mpc^{-1}\,h}$
 \cite{ven2016}. This gives a corresponding mass scale cutoff of $M_\mathrm{WDM} \simeq 10^{10}
 \units{M_\odot}$, or roughly $10^{-2}$ of the Milky Way halo mass. As we are interested in the main
 halo itself, we do not concern ourself with the differences in smaller mass scales that may
@@ -240,7 +243,7 @@ arise due to our use of pure CDM simulations as a proxy for sterile neutrino dar
 It has been shown that the flux maps for cold versus keV-mass dark matter
 haloes differ by a few percent at most\,\cite{Lovell:2014lea}. While we focus on $m_s=7\units{keV}$ here,
 one should view this study as a test model while noting that the velocity spectroscopy approach is
-valid over a wide range of particle masses.  A different production mechanism for sterile neutrinos can change the free streaming length\,\cite{Merle:2014xpa}, but the general idea of velocity spectroscopy is valid for any production mechanism of dark matter.
+valid over a wide range of particle masses.  A different production mechanism for sterile neutrinos can change the free streaming length\,\cite{Merle:2014xpa}, but the general idea of velocity spectroscopy is valid for {\it any} production mechanism of dark matter.
 
 Among the 46 halo realizations, we focus on one halo, Halo 374, (Figure\,\ref{fig:halo374}) in detail. This is the most spherically-symmetric halo, with principal axis ratios $b/a=0.86$ and $c/a=0.73$.  We choose this halo to facilitate the comparison of our results with a spherically symmetric generalized NFW profile of the halo.  Dark-matter-only simulations produce triaxial halos, but recent hydrodynamical simulations have shown that the inclusion of baryons tend to sphericalize a halo\,\cite{Debattista:2007yz,Bryan:2012mw,Bernal:2014mmt,Bernal:2016guq}.
 
@@ -265,7 +268,7 @@ velocity dispersion in a natural way.
 
 The total flux can be found by integrating the differential flux in Eqn.\,\ref{eq:double differential for the flux} over the energy and solid angle.  Implementing this in an N-body simulation implies a summation over all of the particles, $p$, within the field of view, $\Omega$, and weighting by the inverse square of the scalar distance to the observer, $r^{-2}_p$:
 \begin{eqnarray} 
-\mathcal{F} = \frac{\Gamma}{4\pi \, m_s} \, \sum_{p \, \in \, \Omega} \, \frac{m_p}{r_p^{2}} \, ,
+\mathcal{F} = \frac{\Gamma}{4\pi \, m_s} \, \sum_{p \, \in \, \Omega} \, \frac{m_p}{r_p^{2}} \, .
 \end{eqnarray}
 
 The differential flux in energy can also be calculated in a similar way:
@@ -365,7 +368,7 @@ determined by the background model \cite{Ajello:2008xb}, and endow each with ene
 $E_i \sim \mathrm{Uniform}(3.5\units{keV}\pm10.5\units{eV})$. 
 
 We then attempt to reconstruct the sterile neutrino decay line from the synthetic photons $\{E_i\}$.
-A major challenge in this work is differentiating between small numbers of signal vs. background photons in
+A major challenge in this work is differentiating between small numbers of signal v/s background photons in
 order to determine the line energy. To this end, we use an extended maximum likelihood analysis for
 each pointing $\ell$.  This is an unbinned analysis described by \cite{barlow1990} which allows us to estimate
 the signal parameters $E$ and $\sigma_E$ as well as the signal and background counts $N_s$
@@ -377,7 +380,7 @@ Our likelihood function is
 	\mathcal{L}(E, \sigma_E, N_s, N_b; \{E_i\}) =\\
 	\frac{e^{-(N_s+N_b)}}{N!} \prod_{i=1}^{N}
 	\left(\frac{N_s e^{\frac{-(E_i-E)^2}{2(\sigma_E^2+\sigma_\mathrm{instr}^2)}}}
-	{\sqrt{2\pi(\sigma_E^2+\sigma_\mathrm{instr}^2)}}+\frac{N_b}{\sigma_b}\right)
+	{\sqrt{2\pi(\sigma_E^2+\sigma_\mathrm{instr}^2)}}+\frac{N_b}{\sigma_b}\right) \, .
 \end{multline}
 Fixed parameters are the total number
 of observed photons $N$, the energy range over which the likelihood is fit $\sigma_b=21 \units{eV}$, 
@@ -540,26 +543,26 @@ Figure \ref{fig:triax}.
 
 \begin{figure}[h!]
 \centering
-\begin{subfigure}[b]{1.0\columnwidth}
-	\includegraphics[width=\textwidth]{flux_map_374.png}
-\subcaption{Flux.}
-\end{subfigure}
-\par\medskip
-\begin{subfigure}[b]{1.0\columnwidth}
-	\includegraphics[width=\textwidth]{line_map_374.png}
-\subcaption{Doppler-shifted line centroid.}
-\end{subfigure}
-\par\medskip
-\begin{subfigure}[b]{1.0\columnwidth}
-	\includegraphics[width=\textwidth]{sigma_map_374.png}
-\subcaption{Exclusion of the line centroid from $\delta E/E=0$.}
-\end{subfigure}
+%\begin{subfigure}[b]{1.0\columnwidth}
+	\includegraphics[width=0.99\columnwidth]{flux_map_374.png}
+%\subcaption{Flux.}
+%\end{subfigure}
+%\par\medskip
+%\begin{subfigure}[b]{1.0\columnwidth}
+	\includegraphics[width=0.99\columnwidth]{line_map_374.png}
+%\subcaption{Doppler-shifted line centroid.}
+%\end{subfigure}
+%\par\medskip
+%\begin{subfigure}[b]{1.0\columnwidth}
+	\includegraphics[width=0.99\columnwidth]{sigma_map_374.png}
+%\subcaption{Exclusion of the line centroid from $\delta E/E=0$.}
+%\end{subfigure}
 \caption{Sky maps illustrating the principle of velocity spectroscopy. Top: The flux map. Middle:
 	The dipole pattern in the line energy induced by our motion relative to the Milky Way halo.
 	Bottom: The signicance of the detection of Doppler shifting of a dark matter decay line,
 indicating the significance by which $\delta E/E=0$ can be excluded for a Micro-X
 observation. Black circles indicate the
-FOV of Micro-X on the sky for the six pointings used in Figure \ref{fig:de_vs_l}. }
+FoV of Micro-X on the sky for the six pointings used in Figure \ref{fig:de_vs_l}. }
 \label{fig:skymaps}
 \end{figure}
 
@@ -568,21 +571,21 @@ FOV of Micro-X on the sky for the six pointings used in Figure \ref{fig:de_vs_l}
 %\subsection{Halo triaxiality}
 %\label{sec:triaxiality}
 
-\begin{figure}[h!]
+\begin{figure*}[!thpb]
 \centering
-\begin{subfigure}[b]{1.0\columnwidth}
-	\includegraphics[width=\textwidth]{flux_map_800.png}
-\end{subfigure}
-\par\medskip
-\begin{subfigure}[b]{1.0\columnwidth}
-	\includegraphics[width=\textwidth]{de_vs_l_800.png}
-\end{subfigure}
+%\begin{subfigure}[b]{1.0\columnwidth}
+	\includegraphics[width=0.49\textwidth]{flux_map_800.png}
+%\end{subfigure}
+%\par\medskip
+%\begin{subfigure}[b]{1.0\columnwidth}
+	\includegraphics[width=0.49\textwidth]{de_vs_l_800.png}
+%\end{subfigure}
 \caption{An asymmetric Milky Way halo (Halo 800 with $b/a = 0.60051$ and $c/a = 0.41654$) can skew the significance of the
 	observed signal to the east or west. Each field of view (black circles in the sky map where $b = 25^\circ$) corresponds to a data point in
 the lower plot. The gray shaded region indicates the $1\sigma$ uncertainties for the analytic model
 derived from a spherical NFW profile fit to this halo.}
 \label{fig:triax}
-\end{figure}
+\end{figure*}
 
 
 
@@ -591,37 +594,31 @@ derived from a spherical NFW profile fit to this halo.}
 \section{Conclusions}
 \label{sec:conclusions}
 
-Very often in the past, anomalous astrophysical signals have been interpreted as the signature of dark matter.  However, none of these extraordinary claims survived the scrutiny of extraordinary evidence.  All of these false alarms raise an important question:  can we design a new test to confirm the dark matter origin of an anomalous astrophysical signal?  The answer is yes, and Ref.\,\cite{speckhard2016} showed that telescopes with $\mathcal{O}$(0.1\%) energy resolution can utilize the Doppler effect of a sharp signal arising from dark matter interactions to perform a particle physics model-independent test: dark matter velocity spectroscopy.
+Numerous times in the past, anomalous astrophysical signals have been interpreted as the signature of dark matter.  So far, none of these extraordinary claims survived the scrutiny of extraordinary evidence.  All of these false alarms raise an important question:  can we design a new test to confirm the dark matter origin of an anomalous astrophysical signal?  
 
-We look into the issue in detail in this work using synthetic observations generated from a suite
-of N-body simulations \cite{mao2015}.  We find that the signature of dark matter velocity spectroscopy is robust while considering various dark matter only simulations.  Previous work had applied the technique to a narrow field of view instrument like Hitomi, whereas in this work we concentrate on a wide field of view instrument like Micro-X.  We take the 3.5 keV line as our test case. 
+For the case of a photon line, the answer is yes.  Ref.\,\cite{speckhard2016} showed that telescopes with $\mathcal{O}$(0.1\%) energy resolution can utilize the Doppler effect of a sharp signal arising from dark matter annihilation and decay to perform a particle physics model-independent test: dark matter velocity spectroscopy.
 
-We find that Micro-X (total
+We look into the issue in this work using synthetic observations generated from a suite
+of N-body simulations \cite{mao2015}.  An N-body simulation takes into account many complex processes which occur during galaxy formation, and these effects are not completely captured in an analytical description.  It is essential to check the validity of any new signature with  numerical simulations.  We find that the phenomenan of dark matter velocity spectroscopy is robust while considering various dark matter only simulations of the Milky Way.  Previous work had applied the technique to a narrow field of view instrument like Hitomi, whereas in this work we concentrate on a wide field of view instrument like Micro-X.  We take the 3.5 keV line as our test case. 
+
+ For a Micro-X like instrument, the simple sinusoidal model for the Doppler shifting signature $\delta E/E
+= (v_\odot/c) \sin \ell \cos b$ is sufficient (see Fig.\,\ref{fig:de_vs_l}).  This agreement arises due to the small number of photon counts.  We find that Micro-X (total
 exposure $\sim10^3\units{cm^2~str~s}$ for all pointings) can reliably confirm the Doppler
-shifting effect on a sterile netrino decay line at $3\sigma$ or better. The best design for such an
+shifting effect on a sterile neutrino decay line at $3\sigma$ or better (see Figs.\,\ref{fig:sigma_pdf} and \ref{fig:skymaps}). The best design for such an
 observation consists of pointings centered around Galactic longitude $\ell\sim\pm75^\circ$ and
 latitude $b=25^\circ$, as this gives the optimal balance between the magnitude of the Doppler shift
-and the signal to noise ratio.
+and the signal to noise ratio. 
 
-Although we give the fully analytic treatment for a wide field of
-view ($20^\circ$ radius) instrument, the simple sinusoidal model for the Doppler shifting signature $\delta E/E
-= (v_\odot/c) \sin \ell \cos b$ is sufficiently accurate for the photon statistics
-considered here. Only for a ~100x longer observation will the small and large field of view models
-be differentiable.
-
-We find that the halo
-triaxiality does have an important effect on the significance of the detection.  The effects of subhaloes are
-also considered but found to be small.
+Typical sterile neutrino dark matter production mechanisms predict a large cutoff in the mass function ($\sim$ 10$^8$ M$_\odot$).  Thus, subhalos contribute little to the flux spectrum, and has no appreciable effect to velocity spectroscopy for sterile neutrino dark matter (see Fig.\,\ref{fig:subhalo_flux}).  Dark matter halos are predicted to be triaxial.  We find that triaxiality has a large effect on velocity spectroscopy: the Doppler shift becomes asymmetric, and it results in a decrease of the signal significance (see Fig.\,\ref{fig:triax}).
 
 We are optimistic about future experiments. While Micro-X is a good model for a first observation of dark matter velocity
-spectroscopy in the Milky Way, future high resolution X-ray spectrographs are sure to provide the
+spectroscopy in the Milky Way, future high resolution telescopes are sure to provide the
 modest increase in photon counts needed for a high-significance detection. Increasing the duration
 of the model Micro-X exposure by a factor of 10 gives at least an $8\sigma$ detection of the Doppler
-effect on photons arising from dark matter interactions.
+effect on photons arising from sterile neutrino decay.
 
-We emphasize that although we focus on the $3.5\units{keV}$ line here, the theoretical and
-observational concepts laid out here are applicable to sharp photon features arising from \emph{any} dark matter
-interaction process.  In addition to other indirect searches of dark matter (see for e.g.,\,\cite{Dasgupta:2012bd,Laha:2012fg,Ng:2013xha,Murase:2015gea,Chowdhury:2016bxs}), we expect that this new technique will be adopted widely.  We encourage theorists, experimentalists and observers to optimize their tools to take advantage of this new and exciting {\it smoking gun} signature of dark matter.  
+The theoretical and
+observational concepts laid out in this work are general.  Any sharp photon feature arising from dark matter annihilation or decay\,\cite{Boddy:2015efa,Ibarra:2013eda} will get Doppler shifted in the above mentioned way.  In addition to other indirect searches of dark matter (see for e.g.,\,\cite{Yuksel:2007dr,Dasgupta:2012bd,Laha:2012fg,Ng:2013xha,Murase:2015gea,Chowdhury:2016bxs}), we expect that this new technique will be adopted widely.  We encourage theorists, experimentalists and observers to optimize their tools to take advantage of this new and exciting {\it smoking gun in motion} signature of dark matter.  
 
  
 %\vspace{-0.5 cm}
@@ -631,8 +628,8 @@ interaction process.  In addition to other indirect searches of dark matter (see
 % % % % % % % % % % % % % % % %Acknowledgments % % % % % % % % % % % % % % %
 \section*{Acknowledgments} 
 
-The authors thank Mark Lovell, Yao-Yuan Mao, and Chris Davis for helpful discussions. D.P. is
-thankful for support from the Stanford Fletcher Jones Foundation Fellowship.  R.L. thanks KIPAC for support.
+The authors thank John F. Beacom, Matt Kistler, Mark Lovell, Yao-Yuan Mao, and Chris Davis for helpful discussions. D.P. is
+thankful for support from the Stanford Fletcher Jones Foundation Fellowship.  R.L. is supported by DOE Contract DE-AC02-76SF00515 in SLAC.
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %	
 
