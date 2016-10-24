@@ -63,7 +63,13 @@
 \date{\today}
 
 \begin{abstract}
-Indirect detection of dark matter is a major avenue for discovery.  However, baryonic backgrounds are diverse enough to mimic many possible signatures of dark matter.  In this work, we study in detail the newly proposed technique of dark matter velocity spectroscopy\,\cite{speckhard2016}.   The non-rotating dark matter halo and the Solar motion produce a distinct longitudinal dependence of the signal which is opposite in direction to that produced by baryons.  Using collisionless dark matter only simulations of the Milky Way, we show that this new signature is robust and holds great promise.  We develop mock observations by Micro-X to our test case: 3.5 keV line.  We show that by using six different pointings, Micro-X can exclude a constant line energy over various longitudes at $\geq$ 3$\sigma$.  The halo triaxiality is an important effect and it can reduce the significance of this signal.  We emphasize that this new {\it smoking gun in motion} signature of dark matter is general, and is applicable to any sharp photon feature arising due to dark matter annihilation or decay.
+Indirect detection of dark matter is a major avenue for discovery.  However, baryonic backgrounds
+are diverse enough to mimic many possible signatures of dark matter.  In this work, we study in
+detail the newly proposed technique of dark matter velocity spectroscopy\,\cite{speckhard2016}.
+The non-rotating dark matter halo and the Solar motion produce a distinct longitudinal dependence of
+the signal which is opposite in direction to that produced by baryons.  Using collisionless dark
+matter only simulations of the Milky Way, we show that this new signature is robust and holds great
+promise.  We develop mock observations by Micro-X to our test case, the 3.5 keV line.  We show that by using six different pointings, Micro-X can exclude a constant line energy over various longitudes at $\geq$ 3$\sigma$.  The halo triaxiality is an important effect and it can reduce the significance of this signal.  We emphasize that this new {\it smoking gun in motion} signature of dark matter is general, and is applicable to any sharp photon feature arising due to dark matter annihilation or decay.
 \end{abstract}
 
 %\pacs{95.35.+d, 13.35.Hb, 14.60.St, 14.60.Pq}
@@ -173,7 +179,7 @@ v_\los(\br) $.  Both the width and observed energy of the line are determined by
 $\br$ of the emission, indicated by $\br$ in the argument of $d\tilde{N}/dE$.
 
 \subsection{Analytic model}
-\label{sec:simulations}
+\label{sec:anmod}
 
 
 %We consider the 3.5 keV line corresponding to $m_s$ = 7 keV. We again note that the physics herein are valid for any
@@ -406,7 +412,8 @@ We give an example of one such synthetic observation and extended likelihood fit
 \caption{ An example of a synthetic Micro-X observation. The histogram gives the observed photons,
 	though we emphasize that this is only to guide the eye; the likelihood analysis itself is
 	unbinned. The dashed black curves show the model fit, with the horizontal error bars giving the
-	uncertainty in the position of the line centroid. The vertical red dashed lines give the line
+	position of the line centroid and $1\sigma$ uncertainty. This uncertainty is computed via the
+	extended likelihood analysis described by Ref. \cite{barlow1990}. The vertical red dashed lines give the line
 	energy as predicted by the analytic model.
 }
 \label{fig:synobs}
@@ -444,7 +451,11 @@ Our velocity spectroscopy analysis on N-body data reveals three main insights.
 	instrumental parameters of Micro-X with our analytic model (Section
 	\ref{sec:theory}) as well as a simple sinusoidal model, showing excellent agreement between the
 	three. Note that the error bars represent $\sigma_{\mathrm{cent}}$, the $1\sigma$ uncertainty
-	in the energy of the line centroid. For the
+	in the energy of the line centroid. This uncertainty is dominated by the Poisson statistics; we
+	see that for hypothetical exposures with 10x and 100x the photon counts, the error bars shrink
+	considerably. This also illustrates that the analytic NFW model (Section \ref{sec:anmod}), the small-FOV
+	sinusoidal model, and the N-body data are indistinguishable until a 100x exposuire is
+	considered. For the
 	purposes of this plot and the sky maps (figures \ref{fig:skymaps} and \ref{fig:triax}), we estimate
 	$\sigma_\mathrm{cent} = (\sigma_E^2+\sigma_\mathrm{instr}^2)^{1/2}C(N_b/N_s)N_s^{-1/2}$, where
 	$C(R)=\sqrt{1+4R}$ is a factor given by the optimal Cramer-Rao bound.}
@@ -491,8 +502,10 @@ exclusion of $\delta E/E = 0$. See Figure \ref{fig:sigma_pdf} for the full resul
 
 We also find that the effect of subhaloes on our observations are small,
 with only $\sim1\%$ of pointings seeing over 10\% of the flux contributed by a single subhalo
-(Figure \ref{fig:subhalo_flux}). This supports intuition in that the closest approach of subhaloes in our
-simulations is $\sim40\units{kpc}$, so the smooth component of the main halo is expected to dominate
+(Figure \ref{fig:subhalo_flux}). This supports intuition in that the perigee of subhaloes to the
+galactic center in our
+simulations is much larger than $r_\odot$: Only 1\% of subhaloes can be found within
+$21\units{kpc}$ of the GC, so the smooth component of the main halo is expected to dominate
 the signal.
 
 The pointings $\ell$ centered around $\pm75^\circ$ exclude $\delta E/E=0$ with 
@@ -532,10 +545,11 @@ Figure \ref{fig:triax}.
 \caption{ 
 	The contribution of subhaloes to the total observed DM decay flux. 
 	The bars give the fraction of all Micro-X pointings containing a subhalo that
-	contributes more than some fraction of the total flux, i.e., we find that at $\ell=105^\circ$,
+	contributes more than some fraction of the total flux, i.e., we find that at $\ell=\pm105^\circ$,
 	about 10\% of pointings contain a subhalo bright enough to contribute over 1\% of the total flux
 	for that pointing. The number of pointings dominated by (10\% or 50\% of total flux) a single subhalo is low, at
-	the $\sim$1\% level.
+	the $\sim$1\% level. This plot is symmetric in $\ell$, so only half of the pointings are plotted
+	here.
 }
 \label{fig:subhalo_flux}
 \end{figure}
@@ -557,12 +571,16 @@ Figure \ref{fig:triax}.
 	\includegraphics[width=0.99\columnwidth]{sigma_map_374.png}
 %\subcaption{Exclusion of the line centroid from $\delta E/E=0$.}
 %\end{subfigure}
-\caption{Sky maps illustrating the principle of velocity spectroscopy. Top: The flux map. Middle:
+\caption{Sky maps illustrating the principle of velocity spectroscopy for our Micro-X observation on
+	Halo 374. Top: The flux map. Middle:
 	The dipole pattern in the line energy induced by our motion relative to the Milky Way halo.
 	Bottom: The signicance of the detection of Doppler shifting of a dark matter decay line,
 indicating the significance by which $\delta E/E=0$ can be excluded for a Micro-X
-observation. Black circles indicate the
-FoV of Micro-X on the sky for the six pointings used in Figure \ref{fig:de_vs_l}. }
+observation. The maps shown are actually the convolution of the sky brightness with the
+$20^\circ$-radius field of view. Therefore, the observed flux, Doppler shift, and significance are
+given by the color at the small X's.
+Black circles indicate the
+FoV of Micro-X on the sky for the six pointings considered here. }
 \label{fig:skymaps}
 \end{figure}
 
@@ -580,7 +598,7 @@ FoV of Micro-X on the sky for the six pointings used in Figure \ref{fig:de_vs_l}
 %\begin{subfigure}[b]{1.0\columnwidth}
 	\includegraphics[width=0.49\textwidth]{de_vs_l_800.png}
 %\end{subfigure}
-\caption{An asymmetric Milky Way halo (Halo 800 with $b/a = 0.60051$ and $c/a = 0.41654$) can skew the significance of the
+\caption{An asymmetric Milky Way halo (Halo 800 with $b/a = 0.60$ and $c/a = 0.42$) can skew the significance of the
 	observed signal to the east or west. Each field of view (black circles in the sky map where $b = 25^\circ$) corresponds to a data point in
 the lower plot. The gray shaded region indicates the $1\sigma$ uncertainties for the analytic model
 derived from a spherical NFW profile fit to this halo.}
@@ -599,7 +617,7 @@ Numerous times in the past, anomalous astrophysical signals have been interprete
 For the case of a photon line, the answer is yes.  Ref.\,\cite{speckhard2016} showed that telescopes with $\mathcal{O}$(0.1\%) energy resolution can utilize the Doppler effect of a sharp signal arising from dark matter annihilation and decay to perform a particle physics model-independent test: dark matter velocity spectroscopy.
 
 We look into the issue in this work using synthetic observations generated from a suite
-of N-body simulations \cite{mao2015}.  An N-body simulation takes into account many complex processes which occur during galaxy formation, and these effects are not completely captured in an analytical description.  It is essential to check the validity of any new signature with  numerical simulations.  We find that the phenomenan of dark matter velocity spectroscopy is robust while considering various dark matter only simulations of the Milky Way.  Previous work had applied the technique to a narrow field of view instrument like Hitomi, whereas in this work we concentrate on a wide field of view instrument like Micro-X.  We take the 3.5 keV line as our test case. 
+of N-body simulations \cite{mao2015}.  An N-body simulation takes into account many complex processes which occur during galaxy formation, and these effects are not completely captured in an analytical description.  It is essential to check the validity of any new signature with  numerical simulations.  We find that the phenomenon of dark matter velocity spectroscopy is robust while considering various dark matter only simulations of the Milky Way.  Previous work had applied the technique to a narrow field of view instrument like Hitomi, whereas in this work we concentrate on a wide field of view instrument like Micro-X.  We take the 3.5 keV line as our test case. 
 
  For a Micro-X like instrument, the simple sinusoidal model for the Doppler shifting signature $\delta E/E
 = (v_\odot/c) \sin \ell \cos b$ is sufficient (see Fig.\,\ref{fig:de_vs_l}).  This agreement arises due to the small number of photon counts.  We find that Micro-X (total
@@ -612,7 +630,7 @@ and the signal to noise ratio.
 Typical sterile neutrino dark matter production mechanisms predict a large cutoff in the mass function ($\sim$ 10$^8$ M$_\odot$).  Thus, subhalos contribute little to the flux spectrum, and has no appreciable effect to velocity spectroscopy for sterile neutrino dark matter (see Fig.\,\ref{fig:subhalo_flux}).  Dark matter halos are predicted to be triaxial.  We find that triaxiality has a large effect on velocity spectroscopy: the Doppler shift becomes asymmetric, and it results in a decrease of the signal significance (see Fig.\,\ref{fig:triax}).
 
 We are optimistic about future experiments. While Micro-X is a good model for a first observation of dark matter velocity
-spectroscopy in the Milky Way, future high resolution telescopes are sure to provide the
+spectroscopy in the Milky Way, future high energy resolution telescopes are sure to provide the
 modest increase in photon counts needed for a high-significance detection. Increasing the duration
 of the model Micro-X exposure by a factor of 10 gives at least an $8\sigma$ detection of the Doppler
 effect on photons arising from sterile neutrino decay.
